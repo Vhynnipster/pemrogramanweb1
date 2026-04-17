@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PORTOFOLIO ZEN</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 40px 20px;
+        display: flex;
+        justify-content: center; 
+        align-items: center;   
+        min-height: 100vh;
+        color: #ffffff;
+        background-color: #000; 
+        overflow-x: hidden;
+      }
+
+      #bgVideo {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        min-width: 100%;
+        min-height: 100%;
+        z-index: -1; 
+        object-fit: cover; 
+        filter: brightness(35%); 
+      }
+
+      .container {
+        max-width: 800px;
+        width: 100%;
+        
+        /* WARNA SEMI-TRANSPARAN: Tetap hitam tapi video masih tembus sedikit */
+        /* Angka 0.75 artinya 75% gelap, jadi masih ada kesan 'solid' tapi tetap kelihatan background-nya */
+        background: rgba(0, 0, 0, 0.75); 
+        
+        /* BLUR HALUS: Memberikan efek kaca agar lebih estetik */
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        
+        padding: 40px;
+        border: 1px solid rgba(255, 255, 255, 0.15); /* Border sangat tipis supaya tidak kaku */
+        border-radius: 15px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        text-align: center;
+        position: relative;
+      }
+      header {
+        border-bottom: 2px solid #f1e9e9;
+        padding-bottom: 20px;
+        margin-bottom: 30px;
+      }
+
+      nav a {
+        text-decoration: none;
+        color: #007bff;
+        margin: 0 15px;
+        font-weight: bold;
+      }
+
+      nav a:hover {
+        text-decoration: underline;
+      }
+
+      .profile-img {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        border: 6px solid #f0e3e3;
+        margin-bottom: 15px;
+        object-fit: cover;
+        object-position: center;
+      }
+
+      section {
+        margin-bottom: 40px;
+      }
+
+      h1, h3, h4 {
+        color: #ffffff;
+        margin-bottom: 10px;
+      }
+
+      ul {
+        display: inline-block;
+        text-align: left; /* Teks list tetap rata kiri agar rapi */
+        padding-left: 20px;
+      }
+
+      .project-gallery {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        flex-wrap: wrap;
+        margin-top: 20px;
+      }
+
+      .project-gallery img {
+        width: 220px;
+        height: 130px;
+        object-fit: cover;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        transition: transform 0.3s;
+      }
+
+      .project-gallery img:hover {
+        transform: scale(1.05);
+      }
+
+      .contact {
+        background: rgba(249, 249, 249, 0.1); /* Dibuat transparan juga agar senada */
+        padding: 20px;
+        border-radius: 10px;
+      }
+
+      .form-group {
+        margin-bottom: 10px;
+      }
+
+      input, textarea {
+        width: 85%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background: rgba(255, 255, 255, 0.9);
+      }
+
+      button {
+        background-color: #f0e3e3;
+        color: #333;
+        padding: 10px 25px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+      }
+
+      button:hover {
+        background-color: #ffffff;
+      }
+    </style>
+  </head>
+  <body>
+    <video autoplay muted loop id="bgVideo">
+      <source src="c:\Users\Akmal Zen\Downloads\BACKGROUND.mp4" type="video/mp4" />
+    </video>
+
+    <div class="container">
+      <header>
+        <h1>Welcome to My Portfolio</h1>
+        <nav>
+          <a href="#">Home</a>
+          <a href="#">About</a>
+          <a href="#">Contact</a>
+        </nav>
+      </header>
+
+      <main>
+        <section class="profile">
+          <img
+            src="c:\Users\Akmal Zen\Downloads\coba3.jpeg"
+            alt="Foto Profil"
+            class="profile-img"
+          />
+          <h3>MUHAMMAD ALFIANO AKMAL ZEN</h3>
+          <p>Haloo semuanya, saya MUHAMMAD ALFIANO AKMAL ZEN, seorang pengembang seni dibidang editing.</p>
+        </section>
+
+        <div style="display: flex; justify-content: space-around; flex-wrap: wrap">
+          <section>
+            <h4>Skills</h4>
+            <ul>
+              <li>DESIGN GRAFIS</li>
+              <li>PHOTOGRAPHER</li>
+              <li>COPYWRITER</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Projects</h4>
+            <ul>
+              <li>MOVIE POSTER</li>
+              <li>PHOTOSHOOT</li>
+              <li>COPYWRITING</li>
+            </ul>
+          </section>
+        </div>
+
+        <section>
+          <h4>Portfolio Gallery</h4>
+          <div class="project-gallery">
+            <img src="c:\Users\Akmal Zen\Downloads\gambar1.jpg" alt="Project 1" />
+            <img src="c:\Users\Akmal Zen\Downloads\gambar2.jpg" alt="Project 2" />
+            <img src="c:\Users\Akmal Zen\Downloads\GAMBAR3.jpg" alt="Project 3" />
+          </div>
+        </section>
+
+        <section class="contact">
+          <h4>Contact Me</h4>
+          <form>
+            <div class="form-group">
+              <input type="text" placeholder="Your Name" />
+            </div>
+            <div class="form-group">
+              <input type="email" placeholder="Your Email" />
+            </div>
+            <div class="form-group">
+              <textarea rows="3" placeholder="Your Message"></textarea>
+            </div>
+            <button type="submit">Submit</button>
+          </form>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
