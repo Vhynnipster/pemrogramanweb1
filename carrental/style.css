@@ -1,98 +1,232 @@
-#search {
-    width: 100%;
-    height: 50em;
-    background-image: url("https://images.unsplash.com/photo-1610809376778-928ee2c3a561?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
-    background-size: cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+:root {
+    --gold: #c5a059;
+    --dark-coffee: #1a1412;
+    --cream: #f9f6f0;
+    --soft-brown: #3d2b1f;
+    --white: #ffffff;
+    --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
-body {
+
+* {
     margin: 0;
-}
-
-.title {
-    color: white;
-    text-align: center;
-}
-
-.title h1 {
-    font-size: 3em;
-    margin: 0;
-}
-
-.title p {
-    font-size: 1.5em;
-    margin: 0.5em 0;
-}
-
-.title hr {
-    width: 50em;
-    max-width: 90vw;
-    border: 1px solid white;
-    margin: 3em auto;
-    opacity: 0.5;
-}
-
-.form-container {
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 3em;
-    border-radius: 1em;
-    color: white;
-    gap: 2em;
-}
-
-.form-container select,
-.form-container input {
+    padding: 0;
     box-sizing: border-box;
-    padding: 0.5em;
-    border: none;
-    border-radius: 0.5em;
-    width: 15em;
-    height: 2.5em;
 }
 
-.form-container button {
-    padding: 0.5em 1em;
-    border: none;
-    border-radius: 0.5em;
-    background-color: #ff5722;
-    color: white;
-    cursor: pointer;
+body {
+    background-color: var(--cream);
+    color: var(--soft-brown);
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
 }
 
-.car-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
-    gap: 1.5em;
-    align-content: center;
-    padding: 2em 1em;
-    align-items: start;
-    max-width: 80rem;
-    margin: 0 auto;
+h1, h2, h3, .footer-brand h3 {
+    font-family: 'Playfair Display', serif;
 }
 
-.car-list h2 {
-    font-size: 2em;
-    margin: 2em 0;
-    grid-column: 1 / -1;
-    text-align: center;
-}
-
-.car-item {
+.hero-section {
+    position: relative;
+    height: 85vh;
     display: flex;
-    justify-content: center;
     align-items: center;
-    flex-direction: column;
-    width: min(22rem, 100%);
+    justify-content: center;
+    background: url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=1920') center/cover no-repeat;
+    text-align: center;
+    color: var(--white);
+    mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
 }
 
-.car-item img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
+.hero-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(rgba(26, 20, 18, 0.8), rgba(26, 20, 18, 0.4));
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 20px;
+    max-width: 800px;
+}
+
+.hero-content h1 { font-size: 3.5rem; margin-bottom: 20px; }
+.hero-content p { font-size: 1.2rem; opacity: 0.9; margin-bottom: 40px; }
+
+.search-container {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 2px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    border-top: 4px solid var(--gold);
+}
+
+.search-form {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.form-group {
+    flex: 1;
+    min-width: 180px;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.form-group label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--gold);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.form-group select, .form-group input {
+    padding: 12px;
+    border: 1px solid #eee;
+    background: #fcfcfc;
+    color: var(--soft-brown);
+}
+
+.btn-search {
+    background: var(--dark-coffee);
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    padding: 0 40px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.btn-search:hover {
+    background: var(--gold);
+    color: var(--dark-coffee);
+}
+
+.car-section { max-width: 1400px; margin: 100px auto; padding: 0 20px; }
+.section-title { text-align: center; font-size: 2.8rem; margin-bottom: 60px; position: relative; }
+.section-title::after {
+    content: ''; display: block; width: 60px; height: 3px; background: var(--gold); margin: 15px auto;
+}
+
+.car-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.car-card {
+    background: var(--white);
+    border: 1px solid rgba(197, 160, 89, 0.2);
+    transition: var(--transition);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.car-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+
+.img-container { position: relative; overflow: hidden; height: 180px; }
+.car-image { width: 100%; height: 100%; object-fit: cover; transition: var(--transition); }
+.car-card:hover .car-image { transform: scale(1.1); }
+
+.badge {
+    position: absolute; top: 10px; right: 10px;
+    background: var(--gold); color: var(--white);
+    padding: 4px 10px; font-size: 0.65rem; font-weight: 600;
+}
+
+.car-content { padding: 15px; }
+.car-title { font-size: 1.1rem; margin-bottom: 10px; }
+.car-details { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 0.8rem; color: #888; }
+.car-price { font-size: 1.1rem; font-weight: 700; color: var(--dark-coffee); margin-bottom: 15px; }
+.car-price span { font-size: 0.75rem; font-weight: 400; }
+
+.btn-rent {
+    width: 100%; padding: 10px;
+    background: transparent;
+    border: 1px solid var(--dark-coffee);
+    color: var(--dark-coffee);
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-rent:hover { background: var(--dark-coffee); color: var(--gold); }
+
+.review-section { background: #efebe4; padding: 80px 20px; }
+.review-grid { 
+    display: grid; 
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 20px; 
+    max-width: 1400px; 
+    margin: 0 auto; 
+}
+
+.review-card { background: var(--white); padding: 20px; border-radius: 4px; }
+.user-profile { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; }
+.user-profile img { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold); }
+.user-profile h4 { font-size: 0.95rem; }
+.stars { color: var(--gold); font-size: 0.7rem; }
+.review-card p { font-style: italic; font-size: 0.85rem; line-height: 1.6; }
+
+.footer { background: var(--dark-coffee); color: var(--cream); padding: 80px 20px 40px; position: relative; }
+.footer-content { max-width: 1200px; margin: 0 auto; text-align: center; }
+.footer-brand h3 { font-size: 2.5rem; color: var(--gold); letter-spacing: 5px; margin-bottom: 10px; }
+
+.social-links-container { 
+    display: flex; 
+    justify-content: center; 
+    flex-wrap: wrap;
+    gap: 15px; 
+    margin: 40px 0; 
+}
+.social-btn { 
+    display: flex; 
+    align-items: center; 
+    gap: 10px;
+    padding: 10px 20px;
+    border: 1px solid var(--gold); 
+    color: var(--gold); 
+    border-radius: 25px; 
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: var(--transition);
+}
+.social-btn i { font-size: 1.1rem; }
+.social-btn:hover { background: var(--gold); color: var(--dark-coffee); }
+
+.copyright { font-size: 0.8rem; opacity: 0.5; margin-top: 60px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; }
+
+.notification-toast {
+    position: fixed; top: 20px; right: -400px;
+    background: var(--white); padding: 20px 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border-left: 6px solid #4CAF50;
+    transition: var(--transition);
+    z-index: 9999;
+}
+.notification-toast.active { right: 20px; }
+.toast-content { display: flex; align-items: center; gap: 20px; }
+.toast-content i { color: #4CAF50; font-size: 2rem; }
+.message .text-1 { display: block; font-weight: 700; color: #333; }
+.message .text-2 { color: #666; font-size: 0.9rem; }
+
+@media (max-width: 1024px) {
+    /* Tablet turun menjadi 2 kolom */
+    .car-grid, .review-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+    .hero-content h1 { font-size: 2.5rem; }
+    .search-form { flex-direction: column; }
+    .btn-search { width: 100%; height: 50px; }
+    /* Mobile turun menjadi 1 kolom */
+    .car-grid, .review-grid { grid-template-columns: 1fr; }
+    .social-links-container { flex-direction: column; align-items: center; }
+    .social-btn { width: 100%; max-width: 300px; justify-content: center; }
 }

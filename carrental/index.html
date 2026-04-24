@@ -1,63 +1,312 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Car Rental</title>
+    <title>Classic Vhynnn | Classic Rental</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="search">
-        <div class="title">
-            <h1>Car Rental</h1>
-            <p>Find the perfect car for your next adventure</p>
-            <hr>
+
+    <div id="notification" class="notification-toast">
+        <div class="toast-content">
+            <i class="fas fa-check-circle"></i>
+            <div class="message">
+                <span class="text text-1">Berhasil!</span>
+                <span class="text text-2">Pesanan Anda telah kami terima.</span>
+            </div>
         </div>
-        <div class="form-container">
-            <div class="form-group">
-                <label for="pickup">Rental Location:</label>
-                <select id="pickup" name="pickup">
-                    <option value="">Select Location</option>
-                    <option value="location1">Yogyakarta</option>
-                    <option value="location2">Bali</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="pickup-date">Rental Start Date:</label>
-                <input type="date" id="pickup-date" name="pickup-date">
-            </div>
-            <div class="form-group">
-                <label for="return-date">Rental End Date:</label>
-                <input type="date" id="return-date" name="return-date">
-            </div>
-            <button type="submit">Search</button>
-        </div>
+        <div class="progress"></div>
     </div>
 
-    <div class="car-list">
-        <h2>Car List</h2>
-        <div class="car-item">
-            <img src="url" alt="Car 1">
-            <h3>Car 1</h3>
-            <p>Car Detail</p>
+    <header class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Mengulang Kenangan, tapi bukan tentang percintaan.</h1>
+            <p>Rasakan sensasi berkendara dengan koleksi mahakarya terbaik kami.</p>
+            
+            <div class="search-container">
+                <form class="search-form">
+                    <div class="form-group">
+                        <label><i class="fas fa-map-marker-alt"></i> Destinasi</label>
+                        <select required>
+                            <option value="">Pilih Kota...</option>
+                            <option value="yogyakarta">Yogyakarta</option>
+                            <option value="bali">Bali</option>
+                            <option value="jakarta">Jakarta</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-calendar-alt"></i> Penjemputan</label>
+                        <input type="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-calendar-check"></i> Pengembalian</label>
+                        <input type="date" required>
+                    </div>
+                    <button type="button" class="btn-search" onclick="showOrderSuccess()">Cari Klasik</button>
+                </form>
+            </div>
         </div>
-        <div class="car-item">
-            <img src="url" alt="Car 2">
-            <h3>Car 2</h3>
-            <p>Car Detail</p>
+    </header>
+
+    <main class="car-section">
+        <h2 class="section-title">The Vintage Collection</h2>
+        <div class="car-grid">
+            <article class="car-card">
+                <div class="img-container">
+                    <img src="https://i.pinimg.com/1200x/db/31/24/db3124d1d4dc082b6788419274411013.jpg" alt="Porsche 356" class="car-image">
+                    <div class="badge">Must Have</div>
+                </div>
+                <div class="car-content">
+                    <h3 class="car-title">Cadillac Eldorado Convertible</h3>
+                    <div class="car-details">
+                        <span><i class="fas fa-users"></i> 4 Seats</span>
+                        <span><i class="fas fa-cog"></i> Manual</span>
+                    </div>
+                    <div class="car-price">Rp 2.500.000 <span>/ hari</span></div>
+                    <button class="btn-rent" onclick="showOrderSuccess()">Reservasi Sekarang</button>
+                </div>
+            </article>
+
+            <article class="car-card">
+                <div class="img-container">
+                    <img src="https://i.pinimg.com/736x/28/16/e7/2816e7504123ee6038e07df16ca2623b.jpg" alt="Mercedes SL" class="car-image">
+                </div>
+                <div class="car-content">
+                    <h3 class="car-title">1939 Ford Deluxe</h3>
+                    <div class="car-details">
+                        <span><i class="fas fa-users"></i> 4 Seats</span>
+                        <span><i class="fas fa-cog"></i> Manual</span>
+                    </div>
+                    <div class="car-price">Rp 3.200.000 <span>/ hari</span></div>
+                    <button class="btn-rent" onclick="showOrderSuccess()">Reservasi Sekarang</button>
+                </div>
+            </article>
+
+            <article class="car-card">
+                <div class="img-container">
+                    <img src="https://i.pinimg.com/736x/06/9e/e5/069ee544dd24712d08100ee944eb6df7.jpg" alt="Ford Mustang" class="car-image">
+                </div>
+                <div class="car-content">
+                    <h3 class="car-title">(VW Combi Scooby-Doo): Volkswagen Type 2 / Combi</h3>
+                    <div class="car-details">
+                        <span><i class="fas fa-users"></i> 6 Seats</span>
+                        <span><i class="fas fa-cog"></i> Auto</span>
+                    </div>
+                    <div class="car-price">Rp 1.800.000 <span>/ hari</span></div>
+                    <button class="btn-rent" onclick="showOrderSuccess()">Reservasi Sekarang</button>
+                </div>
+            </article>
+
+            <article class="car-card">
+                <div class="img-container">
+                    <img src="https://i.pinimg.com/736x/91/ef/28/91ef28156f47ded126f1df4f9035204f.jpg" alt="VW Beetle" class="car-image">
+                </div>
+                <div class="car-content">
+                    <h3 class="car-title">Porsche 911 Classic</h3>
+                    <div class="car-details">
+                        <span><i class="fas fa-users"></i> 2 Seats</span>
+                        <span><i class="fas fa-cog"></i> Manual</span>
+                    </div>
+                    <div class="car-price">Rp 950.000 <span>/ hari</span></div>
+                    <button class="btn-rent" onclick="showOrderSuccess()">Reservasi Sekarang</button>
+                </div>
+            </article>
+
+            <article class="car-card">
+                <div class="img-container">
+                    <img src="https://i.pinimg.com/webp/1200x/8b/b5/01/8bb5016be26872616e3e0f6eb8d603ab.webp" alt="Jaguar E-Type" class="car-image">
+                </div>
+                <div class="car-content">
+                    <h3 class="car-title">Classic Mini (Austin / Morris Mini-Minor)</h3>
+                    <div class="car-details">
+                        <span><i class="fas fa-users"></i> 4Seats</span>
+                        <span><i class="fas fa-cog"></i> Manual</span>
+                    </div>
+                    <div class="car-price">Rp 4.500.000 <span>/ hari</span></div>
+                    <button class="btn-rent" onclick="showOrderSuccess()">Reservasi Sekarang</button>
+                </div>
+            </article>
+
+            <article class="car-card">
+                <div class="img-container">
+                    <img src="https://i.pinimg.com/736x/44/5d/ac/445dac36afb5af713a14bb8b10591136.jpg" alt="Citroen" class="car-image">
+                </div>
+                <div class="car-content">
+                    <h3 class="car-title">1930s Duesenberg Model J Phaeton</h3>
+                    <div class="car-details">
+                        <span><i class="fas fa-users"></i> 4 Seats</span>
+                        <span><i class="fas fa-cog"></i> Semi-Auto</span>
+                    </div>
+                    <div class="car-price">Rp 2.100.000 <span>/ hari</span></div>
+                    <button class="btn-rent" onclick="showOrderSuccess()">Reservasi Sekarang</button>
+                </div>
+            </article>
+
+            <article class="car-card">
+                <div class="img-container">
+                    <img src="https://i.pinimg.com/736x/3d/79/c1/3d79c12d2e48ab7be13f69fc9217579e.jpg" alt="Ferrari" class="car-image">
+                </div>
+                <div class="car-content">
+                    <h3 class="car-title">1930s Packard Touring</h3>
+                    <div class="car-details">
+                        <span><i class="fas fa-users"></i> 4 Seats</span>
+                        <span><i class="fas fa-cog"></i> Manual</span>
+                    </div>
+                    <div class="car-price">Rp 7.000.000 <span>/ hari</span></div>
+                    <button class="btn-rent" onclick="showOrderSuccess()">Reservasi Sekarang</button>
+                </div>
+            </article>
+
+            <article class="car-card">
+                <div class="img-container">
+                    <img src="https://i.pinimg.com/1200x/3a/17/36/3a1736c30b6d86ed4ecbbafa21d4a805.jpg" alt="Land Rover" class="car-image">
+                </div>
+                <div class="car-content">
+                    <h3 class="car-title">Chevrolet Corvette C1</h3>
+                    <div class="car-details">
+                        <span><i class="fas fa-users"></i> 2 Seats</span>
+                        <span><i class="fas fa-cog"></i> Manual</span>
+                    </div>
+                    <div class="car-price">Rp 1.500.000 <span>/ hari</span></div>
+                    <button class="btn-rent" onclick="showOrderSuccess()">Reservasi Sekarang</button>
+                </div>
+            </article>
         </div>
-        <div class="car-item">
-            <img src="url" alt="Car 2">
-            <h3>Car 2</h3>
-            <p>Car Detail</p>
+    </main>
+
+    <section class="review-section">
+        <h2 class="section-title">KOMENTAR CUSTOMER</h2>
+        <div class="review-grid">
+            <div class="review-card">
+                <div class="user-profile">
+                    <img src="https://i.pinimg.com/736x/08/ca/19/08ca19c272919516dc996043d7305a0a.jpg" alt="User">
+                    <div>
+                        <h4>Pundong MU</h4>
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    </div>
+                </div>
+                <p>"Mobil yang merah bagus kaya club bola kesukaan aku"</p>
+            </div>
+            
+            <div class="review-card">
+                <div class="user-profile">
+                    <img src="https://i.pinimg.com/736x/53/84/b6/5384b60c802a54e3bd721472be621bb4.jpg" alt="User">
+                    <div>
+                        <h4>uzumaki yanto</h4>
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    </div>
+                </div>
+                <p>"mobil nya bagus" bikin foto prewed kami sangat ikonik."</p>
+            </div>
+            
+            <div class="review-card">
+                <div class="user-profile">
+                    <img src="https://i.pinimg.com/736x/11/70/ae/1170aeb4fc35ec97808da16ab0f067ed.jpg" alt="User">
+                    <div>
+                        <h4>ngkong</h4>
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    </div>
+                </div>
+                <p>"Layanan VIP. Diantar tepat waktu & wangi."</p>
+            </div>
+
+            <div class="review-card">
+                <div class="user-profile">
+                    <img src="https://i.pinimg.com/736x/91/a2/f2/91a2f238b6a2845497567d964b44ae19.jpg" alt="User" onerror="this.src='https://i.pinimg.com/236x/82/ab/35/82ab3533fc7183e8cf4358a514d3f3f5.jpg'">
+                    <div>
+                        <h4>Bima S.</h4>
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                    </div>
+                </div>
+                <p>"Land Rover klasik ini sangat tangguh. keyeeennnn!"</p>
+            </div>
+
+            <div class="review-card">
+                <div class="user-profile">
+                    <img src="https://i.pinimg.com/736x/01/0a/be/010abedc2121dba8beaf2a2462251e33.jpg" alt="User" onerror="this.src='https://i.pinimg.com/236x/53/43/66/5343666b61c77501a24e93345511a5bc.jpg'">
+                    <div>
+                        <h4>biji onta</h4>
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    </div>
+                </div>
+                <p>"Interior VW Beetle sangat rapi, nostalgia banget."</p>
+            </div>
+
+            <div class="review-card">
+                <div class="user-profile">
+                    <img src="https://i.pinimg.com/webp/1200x/e0/12/58/e01258201db1a7219c10861689694f55.webp" alt="User" onerror="this.src='https://i.pinimg.com/236x/07/33/ba/0733ba760b29378474dea0fdbcb97107.jpg'">
+                    <div>
+                        <h4>Dimas A.</h4>
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    </div>
+                </div>
+                <p>"Pengalaman sewa mobil klasik terbaik di tempat ini."</p>
+            </div>
+
+            <div class="review-card">
+                <div class="user-profile">
+                    <img src="https://i.pinimg.com/webp/736x/c0/bc/6c/c0bc6c0cc6489ace3dbc98f03eff3b6b.webp" alt="User" onerror="this.src='https://i.pinimg.com/236x/82/ab/35/82ab3533fc7183e8cf4358a514d3f3f5.jpg'">
+                    <div>
+                        <h4>nurholifah.</h4>
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    </div>
+                </div>
+                <p>"Admin ganteng, btw pinjam dulu 100."</p>
+            </div>
+
+            <div class="review-card">
+                <div class="user-profile">
+                    <img src="https://i.pinimg.com/736x/cd/8e/87/cd8e87688edaa3e12dec1285ea49a3fa.jpg" alt="User" onerror="this.src='https://i.pinimg.com/236x/53/43/66/5343666b61c77501a24e93345511a5bc.jpg'">
+                    <div>
+                        <h4>Reza P.</h4>
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                    </div>
+                </div>
+                <p>"Harga worth it untuk keliling kota pakai mobil classic."</p>
+            </div>
         </div>
-        <div class="car-item">
-            <img src="url" alt="Car 2">
-            <h3>Car 2</h3>
-            <p>Car Detail</p>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-wave"></div>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>CLASSIC VHYNNN </h3>
+                <p>Masa lalu mengajarkan untuk tampil elegant bukan mengenang bersama mantan.</p>
+            </div>
+            
+            <div class="social-links-container">
+                <a href="https://wa.me/6287809317440" target="_blank" class="social-btn wa">
+                    <i class="fab fa-whatsapp"></i> 0878-0931-7440
+                </a>
+                <a href="#" class="social-btn ig">
+                    <i class="fab fa-instagram"></i> @classicvhynnn_id
+                </a>
+                <a href="#" class="social-btn tt">
+                    <i class="fab fa-tiktok"></i> @classicvhynnn
+                </a>
+                <a href="#" class="social-btn tw">
+                    <i class="fab fa-twitter"></i> @classicvhynnn.x
+                </a>
+            </div>
+            
+            <p class="copyright">&copy; 2026 Classic Voyage Premium. Crafted for Excellence.</p>
         </div>
-    </div>
+    </footer>
+
+    <script>
+        function showOrderSuccess() {
+            const toast = document.getElementById('notification');
+            toast.classList.add('active');
+            
+            setTimeout(() => {
+                toast.classList.remove('active');
+            }, 5000);
+        }
+    </script>
 </body>
-
 </html>
