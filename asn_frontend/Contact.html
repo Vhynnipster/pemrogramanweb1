@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KONTAK</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: flex-start;
+            padding: 40px;
+        }
+
+        .contact-container {
+            max-width: 400px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 30px;
+        }
+        .icon-box {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 20px;
+            flex-shrink: 0;
+            background-color: #f0effc; 
+            color: #6c63ff; 
+            font-size: 22px;
+        }
+
+        .text-box {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .label {
+            font-size: 15px;
+            color: #444;
+            margin-bottom: 2px;
+        }
+
+        .label-bold {
+            font-size: 18px;
+            font-weight: 600;
+            color: #222;
+            margin-bottom: 5px;
+        }
+
+        .value {
+            font-size: 18px;
+            font-weight: 600;
+            color: #222;
+            line-height: 1.2;
+        }
+
+        .address-text {
+            font-size: 15px;
+            color: #333;
+            line-height: 1.6;
+            margin-top: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="contact-container">
+        <div class="contact-item">
+            <div class="icon-box">
+                <i class="fa-solid fa-phone"></i>
+            </div>
+            <div class="text-box">
+                <p class="label">Get in touch</p>
+                <p class="value">Phone Number</p>
+            </div>
+        </div>
+
+        <!-- Email -->
+        <div class="contact-item">
+            <div class="icon-box">
+                <i class="fa-solid fa-envelope"></i>
+            </div>
+            <div class="text-box">
+                <p class="label">Email Address</p>
+                <p class="value">bijionta@digoreng.co.id</p>
+            </div>
+        </div>
+
+        <div class="contact-item">
+            <div class="icon-box">
+                <i class="fa-solid fa-clock"></i>
+            </div>
+            <div class="text-box">
+                <p class="label">Operational</p>
+                <p class="value">07:30-16:30 WIB</p>
+            </div>
+        </div>
+        <div class="contact-item">
+            <div class="icon-box">
+                <i class="fa-solid fa-clock"></i> 
+            </div>
+            <div class="text-box">
+                <p class="label-bold">Alamat</p>
+                <p class="address-text">
+                 1. Jl. KONOHA No. 4 Gejayan Condongbiji Depok Sleman Yogyakarta 55281
+                </p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

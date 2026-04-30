@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ASN_FRONTEND</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 40px 20px;
+        display: flex;
+        justify-content: center; 
+        align-items: center;   
+        min-height: 100vh;
+        color: #ffffff;
+        background-color: #000; 
+        overflow-x: hidden;
+      }
+
+      #bgVideo {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        min-width: 100%;
+        min-height: 100%;
+        z-index: -1; 
+        object-fit: cover; 
+        filter: brightness(35%); 
+      }
+
+      .container {
+        max-width: 800px;
+        width: 100%;
+        
+        background: rgba(0, 0, 0, 0.75); 
+        
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        
+        padding: 40px;
+        border: 1px solid rgba(255, 255, 255, 0.15); 
+        border-radius: 15px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        text-align: center;
+        position: relative;
+      }
+      header {
+        border-bottom: 2px solid #f1e9e9;
+        padding-bottom: 20px;
+        margin-bottom: 30px;
+      }
+
+      nav a {
+        text-decoration: none;
+        color: #007bff;
+        margin: 0 15px;
+        font-weight: bold;
+      }
+
+      nav a:hover {
+        text-decoration: underline;
+      }
+
+      .profile-img {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        border: 6px solid #f0e3e3;
+        margin-bottom: 15px;
+        object-fit: cover;
+        object-position: center;
+      }
+
+      section {
+        margin-bottom: 40px;
+      }
+
+      h1, h3, h4 {
+        color: #ffffff;
+        margin-bottom: 10px;
+      }
+
+      ul {
+        display: inline-block;
+        text-align: left; 
+        padding-left: 20px;
+      }
+
+      .project-gallery {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        flex-wrap: wrap;
+        margin-top: 20px;
+      }
+
+      .project-gallery img {
+        width: 220px;
+        height: 130px;
+        object-fit: cover;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        transition: transform 0.3s;
+      }
+
+      .project-gallery img:hover {
+        transform: scale(1.05);
+      }
+
+      .contact {
+        background: rgba(249, 249, 249, 0.1);
+        padding: 20px;
+        border-radius: 10px;
+      }
+
+      .form-group {
+        margin-bottom: 10px;
+      }
+
+      input, textarea {
+        width: 85%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background: rgba(255, 255, 255, 0.9);
+      }
+
+      button {
+        background-color: #f0e3e3;
+        color: #333;
+        padding: 10px 25px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+      }
+
+      button:hover {
+        background-color: #ffffff;
+      }
+    </style>
+  </head>
+  <body>
+    <video autoplay muted loop id="bgVideo">
+      <source src="c:/Users/Akmal Zen/Documents/GitHub/pemrogramanweb1/asn_frontend/hah.mp4" type="video/mp4" />
+    </video>
+
+    <div class="container">
+      <header>
+        <h1>COMPANY PROFILE PERUSAHAAN IT</h1>
+        <nav>
+          <a href="home">Home</a>
+          <a href="About.html">About</a>
+          <a href="Contact.html">Contact</a>
+        </nav>
+      </header>
+
+      <main>
+        <section class="profile">
+          <img
+            src="https://img.freepik.com/premium-vector/creative-elegant-abstract-minimalistic-logo-design-vector-any-brand-company_1253202-137644.jpg?semt=ais_hybrid&w=740&q=80"
+            alt="Foto Profil"
+            class="profile-img"
+          />
+          <h3></h3>
+          <p>Tingkatkan citra bisnis Anda dengan jasa pembuatan website company profile yang profesional, berdesain modern, dan fungsional. Solusi tepat untuk tampil unggul di era digital.</p>
+        </section>
+
+        <div style="display: flex; justify-content: space-around; flex-wrap: wrap">
+          <section>
+            <h4>Programming Language</h4>
+            <ul>
+              <li>JAVA SCRIPT</li>
+              <li>C/C++</li>
+              <li>PHP</li>
+              <li>PYTHON</li>
+              <li>Kotlin</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Eksplorasi</h4>
+            <ul>
+              <li>SEO Friendly</li>
+              <li>Desain Profesional</li>
+              <li>Navigasi Mudah</li>
+              <li>Konten Informatif</li>
+              <li>Keamanan Website</li>
+            </ul>
+          </section>
+        </div>
+
+        <section>
+          <h4>Portfolio Gallery</h4>
+          <div class="project-gallery">
+            <img src="https://images.squarespace-cdn.com/content/v1/54ec2161e4b01dbc251cbdae/1584415650605-3DZB5RQ4M3WTCH6Y9B60/How-to-hire-Graphic-Designer-california.jpg" alt="Project 1" />
+            <img src="https://puskomedia.id/blog/wp-content/uploads/2024/05/unnamed-file-52.jpg" alt="Project 2" />
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkmPxQ8MOykvmRm_QP9-hIr5GxFAA86r4Okg&s" alt="Project 3" />
+            <img src="https://storage.googleapis.com/danacita-website-v3-prd/website_v3/images/cara-menulis-artikel-seo-friendly.original.png" alt="Project 4" />
+            <img src="https://img.berduflare.com/img/800/root/ChO70R3rWkchiLAChjrwD5XXsn5LJESH66Ekp5dseXNA.jpg" alt="Project 5" />
+          </div>
+        </section>
+
+        <section class="contact">
+          <h4>Contact Me</h4>
+          <form>
+            <div class="form-group">
+              <input type="text" placeholder="Your Name" />
+            </div>
+            <div class="form-group">
+              <input type="email" placeholder="Your Email" />
+            </div>
+            <div class="form-group">
+              <textarea rows="3" placeholder="Your Message"></textarea>
+            </div>
+            <button type="submit">Submit</button> 
+          </form>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
