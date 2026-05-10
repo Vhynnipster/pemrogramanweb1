@@ -1,0 +1,3241 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vyntrax — Premium Trading Solutions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #05050a;
+            color: #e2e8f0;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #05050a; }
+        ::-webkit-scrollbar-thumb { background: #7c3aed; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a855f7; }
+
+        /* ===== VARIABLES ===== */
+        :root {
+            --neon: #a855f7;
+            --neon-dark: #7c3aed;
+            --neon-light: #c084fc;
+            --neon-deep: #581c87;
+            --dark-bg: #05050a;
+            --dark-card: #0a0a15;
+            --dark-border: #1a1a2e;
+            --dark-surface: #0f0f1a;
+        }
+
+        /* ===== UTILITY CLASSES ===== */
+        .neon-text {
+            text-shadow: 0 0 10px rgba(168, 85, 247, 0.5), 0 0 20px rgba(168, 85, 247, 0.3), 0 0 40px rgba(168, 85, 247, 0.2);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #a855f7, #c084fc, #e9d5ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .glass {
+            background: rgba(10, 10, 21, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes pulseSlow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes slideUp {
+            0% { transform: translateY(60px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes drawLine {
+            to { stroke-dashoffset: 0; }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes ticker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* ===== TICKER BAR ===== */
+        .ticker-bar {
+            background: var(--dark-surface);
+            border-bottom: 1px solid rgba(26, 26, 46, 0.5);
+            overflow: hidden;
+            white-space: nowrap;
+            padding: 8px 0;
+        }
+
+        .ticker-content {
+            display: inline-block;
+            animation: ticker 30s linear infinite;
+        }
+
+        .ticker-item {
+            margin: 0 24px;
+            font-size: 12px;
+            display: inline;
+        }
+
+        .ticker-pair {
+            color: var(--neon);
+            font-weight: 600;
+        }
+
+        .ticker-green { color: #4ade80; }
+        .ticker-red { color: #f87171; }
+
+        /* ===== NAVIGATION ===== */
+        .navbar {
+            position: fixed;
+            top: 32px;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            transition: all 0.5s ease;
+        }
+
+        .navbar.scrolled {
+            top: 0;
+        }
+
+        .nav-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .nav-glass {
+            background: rgba(10, 10, 21, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(168, 85, 247, 0.1);
+            border-radius: 16px;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .nav-logo-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--neon), var(--neon-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .nav-logo-icon span {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 18px;
+            color: white;
+        }
+
+        .nav-logo-icon::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 14px;
+            background: rgba(168, 85, 247, 0.2);
+            filter: blur(12px);
+            z-index: -1;
+        }
+
+        .nav-logo-text {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 20px;
+            background: linear-gradient(135deg, #a855f7, #c084fc, #e9d5ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #d1d5db;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--neon);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--neon);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-login {
+            color: #d1d5db;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 8px 16px;
+            transition: color 0.3s;
+        }
+
+        .btn-login:hover {
+            color: white;
+        }
+
+        .btn-neon {
+            background: linear-gradient(135deg, var(--neon-dark), var(--neon));
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 10px 20px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-neon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-neon:hover::before {
+            left: 100%;
+        }
+
+        .btn-neon:hover {
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.4), 0 0 40px rgba(168, 85, 247, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        /* ===== MOBILE MENU ===== */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 320px;
+            height: 100%;
+            z-index: 2000;
+            background: rgba(10, 10, 21, 0.95);
+            backdrop-filter: blur(20px);
+            border-left: 1px solid rgba(168, 85, 247, 0.1);
+            padding: 24px;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .mobile-menu-links {
+            margin-top: 64px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .mobile-menu-links a {
+            color: #d1d5db;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(26, 26, 46, 0.5);
+            transition: color 0.3s;
+        }
+
+        .mobile-menu-links a:hover {
+            color: var(--neon);
+        }
+
+        .mobile-menu-actions {
+            margin-top: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn-outline-neon {
+            border: 1px solid rgba(168, 85, 247, 0.5);
+            background: transparent;
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 12px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            text-align: center;
+            display: block;
+        }
+
+        .btn-outline-neon:hover {
+            background: rgba(168, 85, 247, 0.1);
+            border-color: var(--neon);
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .mobile-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1999;
+            display: none;
+        }
+
+        .mobile-overlay.active {
+            display: block;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        .hero-gradient {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 50% 0%, rgba(168, 85, 247, 0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 50%, rgba(124, 58, 237, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 20% 80%, rgba(88, 28, 135, 0.1) 0%, transparent 50%);
+        }
+
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(168, 85, 247, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(168, 85, 247, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        .hero-orb-1 {
+            position: absolute;
+            top: 25%;
+            left: 10%;
+            width: 288px;
+            height: 288px;
+            background: rgba(168, 85, 247, 0.05);
+            border-radius: 50%;
+            filter: blur(100px);
+            animation: pulseSlow 4s ease-in-out infinite;
+        }
+
+        .hero-orb-2 {
+            position: absolute;
+            bottom: 25%;
+            right: 10%;
+            width: 384px;
+            height: 384px;
+            background: rgba(124, 58, 237, 0.05);
+            border-radius: 50%;
+            filter: blur(100px);
+            animation: pulseSlow 4s ease-in-out infinite;
+            animation-delay: 2s;
+        }
+
+        .orbit-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            opacity: 0.05;
+        }
+
+        .orbit-ring {
+            position: absolute;
+            inset: 0;
+            border: 1px solid var(--neon);
+            border-radius: 50%;
+            animation: spin 25s linear infinite;
+        }
+
+        .orbit-ring-2 {
+            inset: 32px;
+            animation-duration: 20s;
+            animation-direction: reverse;
+        }
+
+        .orbit-ring-3 {
+            inset: 64px;
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 10;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        .hero-grid-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 999px;
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            background: rgba(168, 85, 247, 0.05);
+            margin-bottom: 32px;
+        }
+
+        .hero-badge-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #4ade80;
+            animation: pulseSlow 2s ease-in-out infinite;
+        }
+
+        .hero-badge-text {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--neon-light);
+        }
+
+        .hero-title {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: clamp(36px, 5vw, 64px);
+            line-height: 1.15;
+            margin-bottom: 24px;
+            color: white;
+        }
+
+        .hero-title .gradient-text {
+            display: block;
+        }
+
+        .hero-desc {
+            color: #9ca3af;
+            font-size: 18px;
+            line-height: 1.8;
+            max-width: 512px;
+            margin-bottom: 32px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .hero-btn-primary {
+            background: linear-gradient(135deg, var(--neon-dark), var(--neon));
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 700;
+            padding: 16px 32px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hero-btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .hero-btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .hero-btn-primary:hover {
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.4), 0 0 40px rgba(168, 85, 247, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .hero-btn-secondary {
+            border: 1px solid rgba(168, 85, 247, 0.5);
+            background: transparent;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 700;
+            padding: 16px 32px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hero-btn-secondary:hover {
+            background: rgba(168, 85, 247, 0.1);
+            border-color: var(--neon);
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .hero-stats {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            padding-top: 16px;
+        }
+
+        .hero-stat-item {}
+
+        .hero-stat-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            font-weight: 900;
+            color: white;
+        }
+
+        .hero-stat-label {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .hero-stat-divider {
+            width: 1px;
+            height: 40px;
+            background: var(--dark-border);
+        }
+
+        /* Hero Chart */
+        .hero-chart {
+            position: relative;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .chart-card {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.05) 0%, rgba(10, 10, 21, 0.8) 100%);
+            border: 1px solid rgba(168, 85, 247, 0.15);
+            border-radius: 24px;
+            padding: 32px;
+            transition: all 0.4s ease;
+        }
+
+        .chart-card:hover {
+            border-color: rgba(168, 85, 247, 0.5);
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.15), 0 8px 32px rgba(168, 85, 247, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .chart-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .chart-pair-name {
+            font-size: 14px;
+            color: #9ca3af;
+        }
+
+        .chart-price {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
+            font-weight: 900;
+            color: white;
+        }
+
+        .chart-price-sub {
+            font-size: 16px;
+            color: #9ca3af;
+        }
+
+        .chart-change {
+            text-align: right;
+        }
+
+        .chart-change-value {
+            color: #4ade80;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .chart-change-label {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .chart-svg {
+            width: 100%;
+            height: 200px;
+        }
+
+        .chart-line {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: drawLine 3s ease forwards;
+        }
+
+        .chart-time-btns {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .chart-time-btn {
+            padding: 4px 12px;
+            border-radius: 8px;
+            background: transparent;
+            border: none;
+            color: #9ca3af;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .chart-time-btn:hover {
+            color: white;
+            background: rgba(26, 26, 46, 0.5);
+        }
+
+        .chart-time-btn.active {
+            background: rgba(168, 85, 247, 0.2);
+            color: var(--neon);
+            font-weight: 700;
+        }
+
+        .chart-quick-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(26, 26, 46, 0.5);
+        }
+
+        .chart-quick-stat-label {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .chart-quick-stat-value {
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .chart-quick-stat-value.green { color: #4ade80; }
+        .chart-quick-stat-value.red { color: #f87171; }
+        .chart-quick-stat-value.white { color: white; }
+
+        /* Floating cards */
+        .float-card {
+            position: absolute;
+            background: rgba(10, 10, 21, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(168, 85, 247, 0.1);
+            border-radius: 12px;
+            padding: 12px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .float-card-1 {
+            top: -16px;
+            right: -16px;
+        }
+
+        .float-card-2 {
+            bottom: -16px;
+            left: -16px;
+            animation-delay: 3s;
+        }
+
+        .float-card-inner {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .float-card-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .float-card-icon.green { background: rgba(74, 222, 128, 0.2); }
+        .float-card-icon.purple { background: rgba(168, 85, 247, 0.2); }
+
+        .float-card-icon i {
+            font-size: 14px;
+        }
+
+        .float-card-icon.green i { color: #4ade80; }
+        .float-card-icon.purple i { color: var(--neon); }
+
+        .float-card-label {
+            font-size: 12px;
+            color: #9ca3af;
+        }
+
+        .float-card-value {
+            font-size: 14px;
+            font-weight: 900;
+        }
+
+        .float-card-value.green { color: #4ade80; }
+        .float-card-value.purple { color: var(--neon); }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        .scroll-indicator span {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .scroll-indicator i {
+            color: var(--neon);
+            font-size: 14px;
+        }
+
+        /* ===== SECTION COMMON ===== */
+        .section {
+            position: relative;
+            z-index: 10;
+            padding: 96px 0;
+        }
+
+        .section-lg {
+            padding: 128px 0;
+        }
+
+        .section-bg {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(168, 85, 247, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(168, 85, 247, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        .section-gradient {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent, rgba(168, 85, 247, 0.02), transparent);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 768px;
+            margin: 0 auto 80px;
+        }
+
+        .section-label {
+            color: var(--neon);
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: clamp(28px, 4vw, 48px);
+            color: white;
+            margin-top: 16px;
+            margin-bottom: 24px;
+            line-height: 1.2;
+        }
+
+        .section-desc {
+            color: #9ca3af;
+            font-size: 18px;
+            line-height: 1.8;
+        }
+
+        /* ===== ABOUT CARDS ===== */
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .neon-card {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.05) 0%, rgba(10, 10, 21, 0.8) 100%);
+            border: 1px solid rgba(168, 85, 247, 0.15);
+            border-radius: 16px;
+            padding: 32px;
+            transition: all 0.4s ease;
+        }
+
+        .neon-card:hover {
+            border-color: rgba(168, 85, 247, 0.5);
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.15), 0 8px 32px rgba(168, 85, 247, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .neon-card-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(124, 58, 237, 0.2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .neon-card-icon i {
+            font-size: 24px;
+            color: var(--neon);
+        }
+
+        .neon-card-title {
+            font-size: 20px;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 12px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .neon-card-desc {
+            color: #9ca3af;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        /* ===== SERVICES ===== */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+        }
+
+        .service-card {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.05) 0%, rgba(10, 10, 21, 0.8) 100%);
+            border: 1px solid rgba(168, 85, 247, 0.15);
+            border-radius: 16px;
+            padding: 40px;
+            transition: all 0.4s ease;
+        }
+
+        .service-card:hover {
+            border-color: rgba(168, 85, 247, 0.5);
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.15), 0 8px 32px rgba(168, 85, 247, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .service-card-top {
+            display: flex;
+            align-items: flex-start;
+            gap: 24px;
+        }
+
+        .service-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--neon), var(--neon-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .service-icon i {
+            font-size: 24px;
+            color: white;
+        }
+
+        .service-title {
+            font-size: 24px;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 12px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .service-desc {
+            color: #9ca3af;
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+
+        .service-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .service-tag {
+            padding: 4px 12px;
+            border-radius: 999px;
+            background: rgba(168, 85, 247, 0.1);
+            color: var(--neon);
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        /* ===== PLATFORM ===== */
+        .platform-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
+        }
+
+        .platform-features {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .platform-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .platform-feature-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(168, 85, 247, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 4px;
+        }
+
+        .platform-feature-icon i {
+            color: var(--neon);
+        }
+
+        .platform-feature-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 4px;
+        }
+
+        .platform-feature-desc {
+            color: #9ca3af;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Platform Mockup */
+        .platform-mockup {
+            position: relative;
+        }
+
+        .mockup-card {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.05) 0%, rgba(10, 10, 21, 0.8) 100%);
+            border: 1px solid rgba(168, 85, 247, 0.15);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .mockup-topbar {
+            background: var(--dark-surface);
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(26, 26, 46, 0.5);
+        }
+
+        .mockup-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .mockup-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .mockup-dot.red { background: #ef4444; }
+        .mockup-dot.yellow { background: #eab308; }
+        .mockup-dot.green { background: #22c55e; }
+
+        .mockup-topbar-title {
+            font-size: 12px;
+            color: #6b7280;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .mockup-content {
+            background: var(--dark-card);
+            padding: 24px;
+        }
+
+        .mockup-tabs {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .mockup-tab-group {
+            display: flex;
+            gap: 12px;
+        }
+
+        .mockup-tab {
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .mockup-tab.active {
+            background: rgba(168, 85, 247, 0.2);
+            color: var(--neon);
+        }
+
+        .mockup-tab.inactive {
+            background: var(--dark-surface);
+            color: #9ca3af;
+        }
+
+        .mockup-tab-change {
+            color: #4ade80;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .mockup-chart-svg {
+            width: 100%;
+            height: 160px;
+        }
+
+        .mockup-buy-sell {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .mockup-bs-item {
+            background: var(--dark-surface);
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .mockup-bs-label {
+            font-size: 12px;
+            color: #6b7280;
+            margin-bottom: 4px;
+        }
+
+        .mockup-bs-value {
+            font-size: 18px;
+            font-weight: 900;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .mockup-bs-value.green { color: #4ade80; }
+        .mockup-bs-value.red { color: #f87171; }
+
+        .mockup-glow {
+            position: absolute;
+            z-index: -1;
+            inset: -16px;
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), transparent);
+            border-radius: 24px;
+            filter: blur(20px);
+        }
+
+        /* ===== STATS ===== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.05) 0%, rgba(10, 10, 21, 0.8) 100%);
+            border: 1px solid rgba(168, 85, 247, 0.15);
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .stat-card:hover {
+            border-color: rgba(168, 85, 247, 0.5);
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.15), 0 8px 32px rgba(168, 85, 247, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .stat-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            background: rgba(168, 85, 247, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+        }
+
+        .stat-icon i {
+            font-size: 24px;
+            color: var(--neon);
+        }
+
+        .stat-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(24px, 3vw, 36px);
+            font-weight: 900;
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #9ca3af;
+        }
+
+        /* Extra stats */
+        .extra-stats-card {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.05) 0%, rgba(10, 10, 21, 0.8) 100%);
+            border: 1px solid rgba(168, 85, 247, 0.15);
+            border-radius: 16px;
+            padding: 48px;
+            margin-top: 64px;
+        }
+
+        .extra-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            text-align: center;
+        }
+
+        .extra-stat-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(28px, 4vw, 48px);
+            font-weight: 900;
+            margin-bottom: 8px;
+        }
+
+        .extra-stat-label {
+            color: #9ca3af;
+            font-size: 15px;
+        }
+
+        /* ===== WHY CHOOSE US ===== */
+        .why-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
+        }
+
+        .why-features {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .why-feature {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            padding: 16px;
+            border-radius: 12px;
+            background: rgba(15, 15, 26, 0.5);
+            border: 1px solid rgba(26, 26, 46, 0.3);
+            transition: all 0.3s;
+        }
+
+        .why-feature:hover {
+            border-color: rgba(168, 85, 247, 0.3);
+        }
+
+        .why-feature-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: rgba(74, 222, 128, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 4px;
+        }
+
+        .why-feature-icon i {
+            color: #4ade80;
+        }
+
+        .why-feature-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 4px;
+        }
+
+        .why-feature-desc {
+            color: #9ca3af;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Comparison */
+        .comparison-card {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.05) 0%, rgba(10, 10, 21, 0.8) 100%);
+            border: 1px solid rgba(168, 85, 247, 0.15);
+            border-radius: 16px;
+            padding: 32px;
+        }
+
+        .comparison-title {
+            font-size: 20px;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 24px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .comparison-items {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .comparison-item-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .comparison-item-label span:first-child {
+            color: #d1d5db;
+        }
+
+        .comparison-item-label span:last-child {
+            color: var(--neon);
+            font-weight: 700;
+        }
+
+        .comparison-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--dark-surface);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .comparison-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--neon), var(--neon-light));
+            border-radius: 4px;
+            transition: width 1.5s ease;
+        }
+
+        /* ===== TESTIMONIALS ===== */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .testimonial-card {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.05) 0%, rgba(10, 10, 21, 0.8) 100%);
+            border: 1px solid rgba(168, 85, 247, 0.15);
+            border-radius: 16px;
+            padding: 32px;
+            transition: all 0.4s ease;
+        }
+
+        .testimonial-card:hover {
+            border-color: rgba(168, 85, 247, 0.5);
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.15), 0 8px 32px rgba(168, 85, 247, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .testimonial-stars {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 16px;
+        }
+
+        .testimonial-stars i {
+            color: #eab308;
+            font-size: 14px;
+        }
+
+        .testimonial-text {
+            color: #d1d5db;
+            line-height: 1.8;
+            margin-bottom: 24px;
+            font-size: 15px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .testimonial-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--neon), var(--neon-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 900;
+            font-size: 16px;
+        }
+
+        .testimonial-name {
+            font-weight: 700;
+            color: white;
+            font-size: 15px;
+        }
+
+        .testimonial-role {
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        /* ===== CTA ===== */
+        .cta-section {
+            position: relative;
+            z-index: 10;
+            padding: 128px 0;
+            overflow: hidden;
+        }
+
+        .cta-bg {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(88, 28, 135, 0.2), var(--dark-bg), rgba(88, 28, 135, 0.2));
+        }
+
+        .cta-orb {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            background: rgba(168, 85, 247, 0.05);
+            border-radius: 50%;
+            filter: blur(100px);
+            animation: pulseSlow 4s ease-in-out infinite;
+        }
+
+        .cta-card {
+            position: relative;
+            max-width: 896px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.05) 0%, rgba(10, 10, 21, 0.8) 100%);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 24px;
+            padding: 64px;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: clamp(28px, 4vw, 48px);
+            color: white;
+            margin-bottom: 24px;
+            line-height: 1.2;
+        }
+
+        .cta-desc {
+            color: #9ca3af;
+            font-size: 18px;
+            line-height: 1.8;
+            max-width: 640px;
+            margin: 0 auto 40px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        .cta-features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 40px;
+            font-size: 14px;
+            color: #9ca3af;
+        }
+
+        .cta-feature {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cta-feature i {
+            color: #4ade80;
+        }
+
+        /* ===== CONTACT ===== */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 2fr 3fr;
+            gap: 48px;
+        }
+
+        .contact-info-list {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .contact-info-item {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.05) 0%, rgba(10, 10, 21, 0.8) 100%);
+            border: 1px solid rgba(168, 85, 247, 0.15);
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            transition: all 0.3s;
+        }
+
+        .contact-info-item:hover {
+            border-color: rgba(168, 85, 247, 0.3);
+        }
+
+        .contact-info-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(168, 85, 247, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contact-info-icon i {
+            color: var(--neon);
+        }
+
+        .contact-info-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 4px;
+        }
+
+        .contact-info-text {
+            color: #9ca3af;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 16px;
+            padding-top: 16px;
+        }
+
+        .social-link {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(168, 85, 247, 0.1);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--neon);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-link:hover {
+            background: rgba(168, 85, 247, 0.2);
+            border-color: rgba(168, 85, 247, 0.4);
+        }
+
+        .social-link i {
+            font-size: 20px;
+        }
+
+        /* Contact Form */
+        .contact-form-card {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.05) 0%, rgba(10, 10, 21, 0.8) 100%);
+            border: 1px solid rgba(168, 85, 247, 0.15);
+            border-radius: 16px;
+            padding: 40px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #d1d5db;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            background: var(--dark-surface);
+            border: 1px solid rgba(26, 26, 46, 0.5);
+            color: white;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+            color: #6b7280;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            border-color: rgba(168, 85, 247, 0.5);
+            box-shadow: 0 0 0 1px rgba(168, 85, 247, 0.2);
+        }
+
+        .form-select {
+            color: #d1d5db;
+        }
+
+        .form-textarea {
+            resize: none;
+            min-height: 120px;
+        }
+
+        .form-submit {
+            grid-column: 1 / -1;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: linear-gradient(135deg, var(--neon-dark), var(--neon));
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            padding: 16px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-submit::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-submit:hover::before {
+            left: 100%;
+        }
+
+        .btn-submit:hover {
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.4), 0 0 40px rgba(168, 85, 247, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Form success */
+        .form-success {
+            display: none;
+            margin-top: 16px;
+            padding: 16px;
+            border-radius: 12px;
+            background: rgba(74, 222, 128, 0.1);
+            border: 1px solid rgba(74, 222, 128, 0.2);
+            text-align: center;
+        }
+
+        .form-success.active {
+            display: block;
+        }
+
+        .form-success i {
+            color: #4ade80;
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .form-success-title {
+            color: #4ade80;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .form-success-text {
+            color: #9ca3af;
+            font-size: 14px;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            position: relative;
+            z-index: 10;
+            border-top: 1px solid rgba(26, 26, 46, 0.5);
+        }
+
+        .footer-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 64px 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .footer-brand-desc {
+            color: #9ca3af;
+            font-size: 14px;
+            line-height: 1.8;
+            margin: 16px 0 24px;
+        }
+
+        .footer-brand-social {
+            display: flex;
+            gap: 12px;
+        }
+
+        .footer-social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: var(--dark-surface);
+            border: 1px solid rgba(26, 26, 46, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #9ca3af;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .footer-social-link:hover {
+            color: var(--neon);
+            border-color: rgba(168, 85, 247, 0.3);
+        }
+
+        .footer-social-link i {
+            font-size: 16px;
+        }
+
+        .footer-heading {
+            font-size: 16px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 16px;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--neon);
+        }
+
+        .footer-bottom {
+            margin-top: 48px;
+            padding-top: 32px;
+            border-top: 1px solid rgba(26, 26, 46, 0.5);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-copyright {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .footer-disclaimer {
+            color: #4b5563;
+            font-size: 12px;
+            text-align: center;
+            max-width: 512px;
+        }
+
+        .footer-disclaimer strong {
+            color: #6b7280;
+        }
+
+        /* ===== BACK TO TOP ===== */
+        .back-to-top {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            z-index: 999;
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(168, 85, 247, 0.2);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            color: var(--neon);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            font-size: 16px;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: rgba(168, 85, 247, 0.3);
+            border-color: rgba(168, 85, 247, 0.5);
+        }
+
+        /* ===== SCROLL ANIMATIONS ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .hero-grid-layout {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+
+            .about-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .testimonials-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .footer-brand {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links,
+            .nav-actions {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero-grid-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-stats {
+                flex-wrap: wrap;
+                gap: 16px;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .platform-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .extra-stats-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .why-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-card {
+                padding: 40px 24px;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .hero-btn-primary,
+            .hero-btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particle Canvas -->
+    <canvas id="particleCanvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0;"></canvas>
+
+    <!-- Ticker Bar -->
+    <div class="ticker-bar" style="position: relative; z-index: 10;">
+        <div class="ticker-content">
+            <span class="ticker-item"><span class="ticker-pair">BTC/USD</span> <span class="ticker-green">$107,842.50 ▲ +2.34%</span></span>
+            <span class="ticker-item"><span class="ticker-pair">ETH/USD</span> <span class="ticker-green">$3,284.10 ▲ +1.87%</span></span>
+            <span class="ticker-item"><span class="ticker-pair">SOL/USD</span> <span class="ticker-red">$186.45 ▼ -0.92%</span></span>
+            <span class="ticker-item"><span class="ticker-pair">XAU/USD</span> <span class="ticker-green">$2,684.30 ▲ +0.56%</span></span>
+            <span class="ticker-item"><span class="ticker-pair">EUR/USD</span> <span class="ticker-green">1.0876 ▲ +0.12%</span></span>
+            <span class="ticker-item"><span class="ticker-pair">US30</span> <span class="ticker-green">42,584.00 ▲ +1.21%</span></span>
+            <span class="ticker-item"><span class="ticker-pair">AAPL</span> <span class="ticker-red">$198.50 ▼ -0.45%</span></span>
+            <span class="ticker-item"><span class="ticker-pair">TSLA</span> <span class="ticker-green">$248.30 ▲ +3.12%</span></span>
+            <span class="ticker-item"><span class="ticker-pair">BTC/USD</span> <span class="ticker-green">$107,842.50 ▲ +2.34%</span></span>
+            <span class="ticker-item"><span class="ticker-pair">ETH/USD</span> <span class="ticker-green">$3,284.10 ▲ +1.87%</span></span>
+            <span class="ticker-item"><span class="ticker-pair">SOL/USD</span> <span class="ticker-red">$186.45 ▼ -0.92%</span></span>
+            <span class="ticker-item"><span class="ticker-pair">XAU/USD</span> <span class="ticker-green">$2,684.30 ▲ +0.56%</span></span>
+            <span class="ticker-item"><span class="ticker-pair">EUR/USD</span> <span class="ticker-green">1.0876 ▲ +0.12%</span></span>
+            <span class="ticker-item"><span class="ticker-pair">US30</span> <span class="ticker-green">42,584.00 ▲ +1.21%</span></span>
+            <span class="ticker-item"><span class="ticker-pair">AAPL</span> <span class="ticker-red">$198.50 ▼ -0.45%</span></span>
+            <span class="ticker-item"><span class="ticker-pair">TSLA</span> <span class="ticker-green">$248.30 ▲ +3.12%</span></span>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-inner">
+            <div class="nav-glass">
+                <a href="#home" class="nav-logo">
+                    <div class="nav-logo-icon">
+                        <span>V</span>
+                    </div>
+                    <span class="nav-logo-text">VYNTRAX</span>
+                </a>
+
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#platform">Platform</a></li>
+                    <li><a href="#stats">Performance</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+
+                <div class="nav-actions">
+                    <a href="#" class="btn-login">Log In</a>
+                    <a href="#contact" class="btn-neon">Get Started</a>
+                </div>
+
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" id="mobileMenuClose">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="mobile-menu-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#platform">Platform</a>
+            <a href="#stats">Performance</a>
+            <a href="#testimonials">Testimonials</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <div class="mobile-menu-actions">
+            <a href="#" class="btn-outline-neon">Log In</a>
+            <a href="#contact" class="btn-neon" style="display: block; text-align: center;">Get Started</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-gradient"></div>
+        <div class="hero-grid"></div>
+        <div class="hero-orb-1"></div>
+        <div class="hero-orb-2"></div>
+
+        <div class="orbit-container">
+            <div class="orbit-ring"></div>
+            <div class="orbit-ring orbit-ring-2"></div>
+            <div class="orbit-ring orbit-ring-3"></div>
+        </div>
+
+        <div class="hero-inner">
+            <div class="hero-grid-layout">
+                <div class="hero-content" style="animation: slideUp 0.8s ease-out;">
+                    <div class="hero-badge">
+                        <span class="hero-badge-dot"></span>
+                        <span class="hero-badge-text">Trading Platform Live — 24/7 Global Markets</span>
+                    </div>
+
+                    <h1 class="hero-title">
+                        TRADE THE
+                        <span class="gradient-text neon-text">FUTURE</span>
+                        WITH <span class="gradient-text neon-text">VYNTRAX</span>
+                    </h1>
+
+                    <p class="hero-desc">
+                        Platform trading kelas dunia dengan teknologi AI canggih, eksekusi ultra-cepat, dan analisis real-time. Raih keuntungan maksimal di setiap pasar global.
+                    </p>
+
+                    <div class="hero-buttons">
+                        <a href="#contact" class="hero-btn-primary">
+                            <span>Mulai Trading</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <a href="#about" class="hero-btn-secondary">
+                            <i class="fas fa-play-circle"></i>
+                            <span>Pelajari Lebih</span>
+                        </a>
+                    </div>
+
+                    <div class="hero-stats">
+                        <div class="hero-stat-item">
+                            <div class="hero-stat-number">50K+</div>
+                            <div class="hero-stat-label">Active Traders</div>
+                        </div>
+                        <div class="hero-stat-divider"></div>
+                        <div class="hero-stat-item">
+                            <div class="hero-stat-number">$2.4B</div>
+                            <div class="hero-stat-label">Trading Volume</div>
+                        </div>
+                        <div class="hero-stat-divider"></div>
+                        <div class="hero-stat-item">
+                            <div class="hero-stat-number">99.9%</div>
+                            <div class="hero-stat-label">Uptime</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-chart" style="animation: fadeIn 1s ease-out;">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <div>
+                                <div class="chart-pair-name">BTC/USDT</div>
+                                <div class="chart-price">$107,842<span class="chart-price-sub">.50</span></div>
+                            </div>
+                            <div class="chart-change">
+                                <div class="chart-change-value">+2.34%</div>
+                                <div class="chart-change-label">24h Change</div>
+                            </div>
+                        </div>
+
+                        <svg class="chart-svg" viewBox="0 0 500 200">
+                            <defs>
+                                <linearGradient id="chartGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#a855f7;stop-opacity:0.3"/>
+                                    <stop offset="100%" style="stop-color:#a855f7;stop-opacity:0"/>
+                                </linearGradient>
+                            </defs>
+                            <path d="M0,180 L25,170 L50,165 L75,140 L100,145 L125,120 L150,130 L175,100 L200,110 L225,80 L250,90 L275,60 L300,70 L325,40 L350,55 L375,30 L400,45 L425,25 L450,35 L475,15 L500,20 L500,200 L0,200 Z" fill="url(#chartGrad)"/>
+                            <path d="M0,180 L25,170 L50,165 L75,140 L100,145 L125,120 L150,130 L175,100 L200,110 L225,80 L250,90 L275,60 L300,70 L325,40 L350,55 L375,30 L400,45 L425,25 L450,35 L475,15 L500,20" fill="none" stroke="#a855f7" stroke-width="2.5" class="chart-line"/>
+                            <circle cx="475" cy="15" r="5" fill="#a855f7" style="animation: pulseSlow 2s ease-in-out infinite;"/>
+                            <circle cx="475" cy="15" r="10" fill="#a855f7" opacity="0.3" style="animation: pulseSlow 2s ease-in-out infinite;"/>
+                        </svg>
+
+                        <div class="chart-time-btns">
+                            <button class="chart-time-btn">1H</button>
+                            <button class="chart-time-btn">4H</button>
+                            <button class="chart-time-btn active">1D</button>
+                            <button class="chart-time-btn">1W</button>
+                            <button class="chart-time-btn">1M</button>
+                        </div>
+
+                        <div class="chart-quick-stats">
+                            <div>
+                                <div class="chart-quick-stat-label">High 24h</div>
+                                <div class="chart-quick-stat-value green">$109,250</div>
+                            </div>
+                            <div>
+                                <div class="chart-quick-stat-label">Low 24h</div>
+                                <div class="chart-quick-stat-value red">$104,820</div>
+                            </div>
+                            <div>
+                                <div class="chart-quick-stat-label">Volume</div>
+                                <div class="chart-quick-stat-value white">$8.2B</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="float-card float-card-1">
+                        <div class="float-card-inner">
+                            <div class="float-card-icon green">
+                                <i class="fas fa-arrow-trend-up"></i>
+                            </div>
+                            <div>
+                                <div class="float-card-label">Profit Today</div>
+                                <div class="float-card-value green">+$2,847</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="float-card float-card-2">
+                        <div class="float-card-inner">
+                            <div class="float-card-icon purple">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div>
+                                <div class="float-card-label">AI Signal</div>
+                                <div class="float-card-value purple">STRONG BUY</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="scroll-indicator">
+            <span>Scroll Down</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section section-lg" id="about">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">About Vyntrax</span>
+                <h2 class="section-title">Revolusi Trading di <span class="gradient-text">Era Digital</span></h2>
+                <p class="section-desc">Vyntrax didirikan dengan visi menghadirkan platform trading yang menggabungkan teknologi AI terdepan dengan pengalaman pengguna yang intuitif. Kami berkomitmen untuk memberdayakan trader di seluruh Indonesia dan dunia.</p>
+            </div>
+
+            <div class="about-grid">
+                <div class="neon-card reveal" style="transition-delay: 0.1s;">
+                    <div class="neon-card-icon">
+                        <i class="fas fa-shield-halved"></i>
+                    </div>
+                    <h3 class="neon-card-title">Keamanan Terjamin</h3>
+                    <p class="neon-card-desc">Enkripsi end-to-end dan sistem keamanan berlapis melindungi setiap transaksi dan data Anda dengan standar militer.</p>
+                </div>
+
+                <div class="neon-card reveal" style="transition-delay: 0.2s;">
+                    <div class="neon-card-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="neon-card-title">Eksekusi Ultra-Cepat</h3>
+                    <p class="neon-card-desc">Eksekusi order dalam milidetik dengan server berperforma tinggi di berbagai lokasi strategis di seluruh dunia.</p>
+                </div>
+
+                <div class="neon-card reveal" style="transition-delay: 0.3s;">
+                    <div class="neon-card-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="neon-card-title">AI Trading Engine</h3>
+                    <p class="neon-card-desc">Algoritma machine learning canggih yang menganalisis jutaan data point untuk memberikan sinyal trading akurat.</p>
+                </div>
+
+                <div class="neon-card reveal" style="transition-delay: 0.4s;">
+                    <div class="neon-card-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3 class="neon-card-title">Pasar Global</h3>
+                    <p class="neon-card-desc">Akses ke forex, crypto, saham, komoditas, dan indeks dari seluruh dunia dalam satu platform terintegrasi.</p>
+                </div>
+
+                <div class="neon-card reveal" style="transition-delay: 0.5s;">
+                    <div class="neon-card-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="neon-card-title">Analisis Real-Time</h3>
+                    <p class="neon-card-desc">Chart interaktif, indikator teknikal lengkap, dan analisis fundamental real-time untuk keputusan trading optimal.</p>
+                </div>
+
+                <div class="neon-card reveal" style="transition-delay: 0.6s;">
+                    <div class="neon-card-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3 class="neon-card-title">Support 24/7</h3>
+                    <p class="neon-card-desc">Tim support profesional siap membantu Anda kapan saja melalui live chat, email, dan telepon.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section section-lg" id="services">
+        <div class="section-bg"></div>
+        <div class="section-gradient"></div>
+        <div class="container" style="position: relative;">
+            <div class="section-header reveal">
+                <span class="section-label">Our Services</span>
+                <h2 class="section-title">Layanan <span class="gradient-text">Trading Premium</span></h2>
+                <p class="section-desc">Berbagai layanan trading yang dirancang untuk memenuhi kebutuhan trader dari pemula hingga profesional.</p>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card reveal">
+                    <div class="service-card-top">
+                        <div class="service-icon">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <div>
+                            <h3 class="service-title">Forex Trading</h3>
+                            <p class="service-desc">Trade 100+ pasangan mata uang utama dan cross pairs dengan spread rendah dan leverage fleksibel hingga 1:500.</p>
+                            <div class="service-tags">
+                                <span class="service-tag">EUR/USD</span>
+                                <span class="service-tag">GBP/USD</span>
+                                <span class="service-tag">USD/JPY</span>
+                                <span class="service-tag">+97 Pairs</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-card reveal" style="transition-delay: 0.15s;">
+                    <div class="service-card-top">
+                        <div class="service-icon">
+                            <i class="fab fa-bitcoin"></i>
+                        </div>
+                        <div>
+                            <h3 class="service-title">Crypto Trading</h3>
+                            <p class="service-desc">Akses 200+ cryptocurrency termasuk Bitcoin, Ethereum, Solana, dan token DeFi terbaru dengan eksekusi instan.</p>
+                            <div class="service-tags">
+                                <span class="service-tag">BTC</span>
+                                <span class="service-tag">ETH</span>
+                                <span class="service-tag">SOL</span>
+                                <span class="service-tag">+197 Coins</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-card reveal" style="transition-delay: 0.3s;">
+                    <div class="service-card-top">
+                        <div class="service-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <div>
+                            <h3 class="service-title">Stock Trading</h3>
+                            <p class="service-desc">Investasi di saham global dari NASDAQ, NYSE, LSE, dan bursa utama dunia dengan komisi kompetitif.</p>
+                            <div class="service-tags">
+                                <span class="service-tag">AAPL</span>
+                                <span class="service-tag">TSLA</span>
+                                <span class="service-tag">MSFT</span>
+                                <span class="service-tag">+2000 Stocks</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-card reveal" style="transition-delay: 0.45s;">
+                    <div class="service-card-top">
+                        <div class="service-icon">
+                            <i class="fas fa-gem"></i>
+                        </div>
+                        <div>
+                            <h3 class="service-title">Commodities & Indices</h3>
+                            <p class="service-desc">Trading emas, perak, minyak, dan indeks global seperti US30, NAS100, dan SPX500 dengan margin rendah.</p>
+                            <div class="service-tags">
+                                <span class="service-tag">Gold</span>
+                                <span class="service-tag">Silver</span>
+                                <span class="service-tag">Oil</span>
+                                <span class="service-tag">+50 Instruments</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Platform Section -->
+    <section class="section section-lg" id="platform">
+        <div style="position: absolute; top: 0; right: 0; width: 600px; height: 600px; background: rgba(168, 85, 247, 0.05); border-radius: 50%; filter: blur(100px);"></div>
+        <div class="container" style="position: relative;">
+            <div class="platform-grid">
+                <div class="reveal">
+                    <span class="section-label">Platform</span>
+                    <h2 class="section-title">Platform Trading <span class="gradient-text">Terdepan</span></h2>
+                    <p class="section-desc" style="margin-bottom: 40px;">Desain intuitif dengan fitur profesional. Trading di mana saja, kapan saja dengan platform Vyntrax yang powerful dan responsif.</p>
+
+                    <div class="platform-features">
+                        <div class="platform-feature">
+                            <div class="platform-feature-icon">
+                                <i class="fas fa-desktop"></i>
+                            </div>
+                            <div>
+                                <div class="platform-feature-title">Desktop Application</div>
+                                <p class="platform-feature-desc">Aplikasi desktop native untuk Windows, macOS, dan Linux dengan performa maksimal dan fitur lengkap.</p>
+                            </div>
+                        </div>
+
+                        <div class="platform-feature">
+                            <div class="platform-feature-icon">
+                                <i class="fas fa-mobile-screen"></i>
+                            </div>
+                            <div>
+                                <div class="platform-feature-title">Mobile App</div>
+                                <p class="platform-feature-desc">Trading on-the-go dengan aplikasi iOS dan Android yang ringan, cepat, dan mudah digunakan.</p>
+                            </div>
+                        </div>
+
+                        <div class="platform-feature">
+                            <div class="platform-feature-icon">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <div>
+                                <div class="platform-feature-title">Web Platform</div>
+                                <p class="platform-feature-desc">Akses langsung melalui browser tanpa instalasi. Cross-platform dan selalu terupdate otomatis.</p>
+                            </div>
+                        </div>
+
+                        <div class="platform-feature">
+                            <div class="platform-feature-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <div>
+                                <div class="platform-feature-title">API Trading</div>
+                                <p class="platform-feature-desc">REST dan WebSocket API untuk developer. Bangun trading bot dan sistem otomatis dengan mudah.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="platform-mockup reveal" style="transition-delay: 0.3s;">
+                    <div class="mockup-glow"></div>
+                    <div class="mockup-card">
+                        <div class="mockup-topbar">
+                            <div class="mockup-dots">
+                                <div class="mockup-dot red"></div>
+                                <div class="mockup-dot yellow"></div>
+                                <div class="mockup-dot green"></div>
+                            </div>
+                            <span class="mockup-topbar-title">VYNTRAX PRO</span>
+                            <div style="width: 48px;"></div>
+                        </div>
+
+                        <div class="mockup-content">
+                            <div class="mockup-tabs">
+                                <div class="mockup-tab-group">
+                                    <span class="mockup-tab active">BTC/USD</span>
+                                    <span class="mockup-tab inactive">ETH/USD</span>
+                                    <span class="mockup-tab inactive">SOL/USD</span>
+                                </div>
+                                <span class="mockup-tab-change">+2.34%</span>
+                            </div>
+
+                            <svg class="mockup-chart-svg" viewBox="0 0 400 150">
+                                <defs>
+                                    <linearGradient id="mockGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#a855f7;stop-opacity:0.2"/>
+                                        <stop offset="100%" style="stop-color:#a855f7;stop-opacity:0"/>
+                                    </linearGradient>
+                                </defs>
+                                <path d="M0,130 L30,120 L60,110 L90,90 L120,95 L150,70 L180,80 L210,50 L240,60 L270,35 L300,45 L330,25 L360,30 L400,15 L400,150 L0,150 Z" fill="url(#mockGrad)"/>
+                                <path d="M0,130 L30,120 L60,110 L90,90 L120,95 L150,70 L180,80 L210,50 L240,60 L270,35 L300,45 L330,25 L360,30 L400,15" fill="none" stroke="#a855f7" stroke-width="2" class="chart-line"/>
+                            </svg>
+
+                            <div class="mockup-buy-sell">
+                                <div class="mockup-bs-item">
+                                    <div class="mockup-bs-label">BUY</div>
+                                    <div class="mockup-bs-value green">$107,840</div>
+                                </div>
+                                <div class="mockup-bs-item">
+                                    <div class="mockup-bs-label">SELL</div>
+                                    <div class="mockup-bs-value red">$107,845</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="section section-lg" id="stats">
+        <div class="section-bg"></div>
+        <div class="section-gradient"></div>
+        <div class="container" style="position: relative;">
+            <div class="section-header reveal">
+                <span class="section-label">Performance</span>
+                <h2 class="section-title">Angka yang <span class="gradient-text">Berbicara</span></h2>
+                <p class="section-desc">Performa Vyntrax dalam angka — bukti nyata kepercayaan ribuan trader di seluruh dunia.</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card reveal">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-number"><span class="count-up" data-target="50000">0</span>+</div>
+                    <div class="stat-label">Active Traders</div>
+                </div>
+
+                <div class="stat-card reveal" style="transition-delay: 0.15s;">
+                    <div class="stat-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="stat-number">$<span class="count-up" data-target="2.4" data-decimal="true">0</span>B</div>
+                    <div class="stat-label">Monthly Volume</div>
+                </div>
+
+                <div class="stat-card reveal" style="transition-delay: 0.3s;">
+                    <div class="stat-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div class="stat-number"><span class="count-up" data-target="120">0</span>+</div>
+                    <div class="stat-label">Countries Served</div>
+                </div>
+
+                <div class="stat-card reveal" style="transition-delay: 0.45s;">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-number"><span class="count-up" data-target="99.9" data-decimal="true">0</span>%</div>
+                    <div class="stat-label">Uptime</div>
+                </div>
+            </div>
+
+            <div class="extra-stats-card reveal">
+                <div class="extra-stats-grid">
+                    <div>
+                        <div class="extra-stat-number gradient-text">0.01s</div>
+                        <div class="extra-stat-label">Average Execution Speed</div>
+                    </div>
+                    <div>
+                        <div class="extra-stat-number gradient-text">0.1</div>
+                        <div class="extra-stat-label">Minimum Spread (Pips)</div>
+                    </div>
+                    <div>
+                        <div class="extra-stat-number gradient-text">500:1</div>
+                        <div class="extra-stat-label">Maximum Leverage</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="section section-lg">
+        <div class="container">
+            <div class="why-grid">
+                <div class="reveal">
+                    <span class="section-label">Why Vyntrax</span>
+                    <h2 class="section-title">Mengapa Memilih <span class="gradient-text">Vyntrax?</span></h2>
+                    <p class="section-desc" style="margin-bottom: 40px;">Kami menghadirkan keunggulan yang tidak akan Anda temukan di platform lain. Setiap fitur dirancang untuk memaksimalkan potensi profit Anda.</p>
+
+                    <div class="why-features">
+                        <div class="why-feature">
+                            <div class="why-feature-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div>
+                                <div class="why-feature-title">Regulasi Terjamin</div>
+                                <p class="why-feature-desc">Teregulasi di berbagai yurisdiksi dengan lisensi dari otoritas keuangan terkemuka dunia.</p>
+                            </div>
+                        </div>
+
+                        <div class="why-feature">
+                            <div class="why-feature-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div>
+                                <div class="why-feature-title">Dana Terpisah</div>
+                                <p class="why-feature-desc">Dana klien disimpan terpisah di bank tier-1 untuk keamanan maksimal.</p>
+                            </div>
+                        </div>
+
+                        <div class="why-feature">
+                            <div class="why-feature-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div>
+                                <div class="why-feature-title">No Hidden Fees</div>
+                                <p class="why-feature-desc">Transparansi biaya 100%. Tidak ada biaya tersembunyi atau komisi yang tidak terduga.</p>
+                            </div>
+                        </div>
+
+                        <div class="why-feature">
+                            <div class="why-feature-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div>
+                                <div class="why-feature-title">Educational Resources</div>
+                                <p class="why-feature-desc">Akses gratis ke webinar, tutorial, e-book, dan kursus trading dari para ahli.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reveal" style="transition-delay: 0.3s;">
+                    <div class="comparison-card">
+                        <h3 class="comparison-title">Vyntrax vs Competitors</h3>
+                        <div class="comparison-items">
+                            <div class="comparison-item">
+                                <div class="comparison-item-label">
+                                    <span>Execution Speed</span>
+                                    <span>0.01s</span>
+                                </div>
+                                <div class="comparison-bar">
+                                    <div class="comparison-bar-fill" style="width: 98%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="comparison-item">
+                                <div class="comparison-item-label">
+                                    <span>Spread (EUR/USD)</span>
+                                    <span>0.1 pips</span>
+                                </div>
+                                <div class="comparison-bar">
+                                    <div class="comparison-bar-fill" style="width: 95%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="comparison-item">
+                                <div class="comparison-item-label">
+                                    <span>AI Accuracy</span>
+                                    <span>87.3%</span>
+                                </div>
+                                <div class="comparison-bar">
+                                    <div class="comparison-bar-fill" style="width: 87%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="comparison-item">
+                                <div class="comparison-item-label">
+                                    <span>Available Instruments</span>
+                                    <span>500+</span>
+                                </div>
+                                <div class="comparison-bar">
+                                    <div class="comparison-bar-fill" style="width: 92%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="comparison-item">
+                                <div class="comparison-item-label">
+                                    <span>Customer Satisfaction</span>
+                                    <span>4.9/5</span>
+                                </div>
+                                <div class="comparison-bar">
+                                    <div class="comparison-bar-fill" style="width: 98%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section section-lg" id="testimonials">
+        <div class="section-bg"></div>
+        <div class="section-gradient"></div>
+        <div class="container" style="position: relative;">
+            <div class="section-header reveal">
+                <span class="section-label">Testimonials</span>
+                <h2 class="section-title">Apa Kata <span class="gradient-text">Trader Kami</span></h2>
+                <p class="section-desc">Dengarkan pengalaman langsung dari para trader yang telah merasakan keunggulan platform Vyntrax.</p>
+            </div>
+
+            <div class="testimonials-grid">
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"Vyntrax benar-benar mengubah cara saya trading. Eksekusi super cepat dan AI signal-nya sangat membantu dalam mengambil keputusan. Profit saya naik 300% dalam 6 bulan!"</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">AR</div>
+                        <div>
+                            <div class="testimonial-name">Andi Rahmawan</div>
+                            <div class="testimonial-role">Professional Trader, Jakarta</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card reveal" style="transition-delay: 0.15s;">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"Sebagai pemula, saya sangat terbantu dengan educational resources dan demo account Vyntrax. Support team-nya juga sangat responsif dan membantu. Highly recommended!"</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">SW</div>
+                        <div>
+                            <div class="testimonial-name">Sarah Wijaya</div>
+                            <div class="testimonial-role">Beginner Trader, Surabaya</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card reveal" style="transition-delay: 0.3s;">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"API trading Vyntrax sangat powerful. Saya bisa membuat trading bot yang berjalan 24/7 dengan latency minimal. Spread terendah yang pernah saya temukan di Indonesia."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">BP</div>
+                        <div>
+                            <div class="testimonial-name">Budi Prasetyo</div>
+                            <div class="testimonial-role">Algo Trader, Bandung</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card reveal" style="transition-delay: 0.45s;">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"Platform mobile Vyntrax sangat smooth dan intuitif. Saya bisa monitoring dan eksekusi trade dari mana saja. Fitur notifikasi real-time sangat berguna."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">ML</div>
+                        <div>
+                            <div class="testimonial-name">Maya Lestari</div>
+                            <div class="testimonial-role">Swing Trader, Yogyakarta</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card reveal" style="transition-delay: 0.6s;">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"Withdrawal cepat tanpa ribet. Dalam 2 jam dana sudah masuk rekening. Ini yang membuat saya loyal trading di Vyntrax selama 2 tahun terakhir."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">RH</div>
+                        <div>
+                            <div class="testimonial-name">Rizky Hakim</div>
+                            <div class="testimonial-role">Day Trader, Medan</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card reveal" style="transition-delay: 0.75s;">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"Copy trading feature-nya luar biasa. Saya bisa mengikuti trader profesional dan mendapatkan return konsisten. Platform terbaik untuk passive income!"</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">DN</div>
+                        <div>
+                            <div class="testimonial-name">Dewi Nuraini</div>
+                            <div class="testimonial-role">Social Trader, Bali</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-bg"></div>
+        <div class="cta-orb"></div>
+        <div class="container" style="position: relative;">
+            <div class="cta-card reveal">
+                <h2 class="cta-title">Siap Memulai <span class="gradient-text">Trading?</span></h2>
+                <p class="cta-desc">Buka akun gratis dalam 2 menit. Dapatkan bonus deposit hingga $5,000 dan akses ke semua fitur premium Vyntrax.</p>
+
+                <div class="cta-buttons">
+                    <a href="#contact" class="hero-btn-primary">
+                        <span>Buka Akun Gratis</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="#" class="hero-btn-secondary">
+                        <i class="fas fa-play"></i>
+                        <span>Demo Account</span>
+                    </a>
+                </div>
+
+                <div class="cta-features">
+                    <span class="cta-feature"><i class="fas fa-check"></i> No Hidden Fees</span>
+                    <span class="cta-feature"><i class="fas fa-check"></i> Min Deposit $10</span>
+                    <span class="cta-feature"><i class="fas fa-check"></i> 24/7 Support</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section section-lg" id="contact">
+        <div class="section-bg"></div>
+        <div class="section-gradient"></div>
+        <div class="container" style="position: relative;">
+            <div class="section-header reveal">
+                <span class="section-label">Contact Us</span>
+                <h2 class="section-title">Hubungi <span class="gradient-text">Kami</span></h2>
+                <p class="section-desc">Punya pertanyaan? Tim kami siap membantu Anda 24/7. Jangan ragu untuk menghubungi kami.</p>
+            </div>
+
+            <div class="contact-grid">
+                <div class="reveal">
+                    <div class="contact-info-list">
+                        <div class="contact-info-item">
+                            <div class="contact-info-icon">
+                                <i class="fas fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <div class="contact-info-title">Kantor Pusat</div>
+                                <div class="contact-info-text">Jl. Sudirman Kav. 52-53<br>Jakarta Selatan 12190, Indonesia</div>
+                            </div>
+                        </div>
+
+                        <div class="contact-info-item">
+                            <div class="contact-info-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <div class="contact-info-title">Email</div>
+                                <div class="contact-info-text">support@vyntrax.com<br>business@vyntrax.com</div>
+                            </div>
+                        </div>
+
+                        <div class="contact-info-item">
+                            <div class="contact-info-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div>
+                                <div class="contact-info-title">Telepon</div>
+                                <div class="contact-info-text">+62 21 5088 9000<br>+62 812 9000 5500</div>
+                            </div>
+                        </div>
+
+                        <div class="contact-info-item">
+                            <div class="contact-info-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div>
+                                <div class="contact-info-title">Jam Operasional</div>
+                                <div class="contact-info-text">Support: 24/7<br>Kantor: Senin - Jumat, 08:00 - 17:00 WIB</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+
+                <div class="reveal" style="transition-delay: 0.2s;">
+                    <div class="contact-form-card">
+                        <form id="contactForm" class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">Nama Lengkap</label>
+                                <input type="text" required placeholder="John Doe" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email</label>
+                                <input type="email" required placeholder="john@email.com" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Telepon</label>
+                                <input type="tel" placeholder="+62 812 xxxx xxxx" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Subjek</label>
+                                <select class="form-select">
+                                    <option>Pilih subjek</option>
+                                    <option>Buka Akun</option>
+                                    <option>Pertanyaan Trading</option>
+                                    <option>Deposit & Withdrawal</option>
+                                    <option>Technical Support</option>
+                                    <option>Partnership</option>
+                                    <option>Lainnya</option>
+                                </select>
+                            </div>
+                            <div class="form-group full-width">
+                                <label class="form-label">Pesan</label>
+                                <textarea required rows="5" placeholder="Tulis pesan Anda di sini..." class="form-textarea"></textarea>
+                            </div>
+                            <div class="form-submit">
+                                <button type="submit" class="btn-submit">
+                                    <span>Kirim Pesan</span>
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </form>
+
+                        <div class="form-success" id="formSuccess">
+                            <i class="fas fa-check-circle"></i>
+                            <div class="form-success-title">Pesan berhasil dikirim!</div>
+                            <div class="form-success-text">Kami akan menghubungi Anda segera.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#home" class="nav-logo" style="margin-bottom: 8px; display: inline-flex;">
+                        <div class="nav-logo-icon">
+                            <span>V</span>
+                        </div>
+                        <span class="nav-logo-text">VYNTRAX</span>
+                    </a>
+                    <p class="footer-brand-desc">Platform trading terdepan dengan teknologi AI canggih untuk trader Indonesia dan global.</p>
+                    <div class="footer-brand-social">
+                        <a href="#" class="footer-social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="footer-social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="footer-social-link"><i class="fab fa-telegram"></i></a>
+                        <a href="#" class="footer-social-link"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="footer-heading">Trading</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Forex</a></li>
+                        <li><a href="#">Cryptocurrency</a></li>
+                        <li><a href="#">Stocks</a></li>
+                        <li><a href="#">Commodities</a></li>
+                        <li><a href="#">Indices</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer-heading">Platform</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Desktop App</a></li>
+                        <li><a href="#">Mobile App</a></li>
+                        <li><a href="#">Web Trading</a></li>
+                        <li><a href="#">API Trading</a></li>
+                        <li><a href="#">Copy Trading</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer-heading">Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer-heading">Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Risk Disclosure</a></li>
+                        <li><a href="#">AML Policy</a></li>
+                        <li><a href="#">Regulatory</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="footer-copyright">&copy; 2026 Vyntrax. All rights reserved.</p>
+                <p class="footer-disclaimer"><strong>Risk Disclaimer:</strong> Trading melibatkan risiko tinggi dan mungkin tidak cocok untuk semua investor. Pastikan Anda memahami risiko yang terlibat sebelum trading.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // ===== PARTICLE CANVAS =====
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        const particlesArr = [];
+        const particleCount = 80;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 1.5 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.3;
+                this.speedY = (Math.random() - 0.5) * 0.3;
+                this.opacity = Math.random() * 0.5 + 0.1;
+                this.pulse = Math.random() * Math.PI * 2;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.pulse += 0.02;
+                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+                    this.reset();
+                }
+            }
+            draw() {
+                const currentOpacity = this.opacity * (0.5 + Math.sin(this.pulse) * 0.5);
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(168, 85, 247, ${currentOpacity})`;
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < particleCount; i++) {
+            particlesArr.push(new Particle());
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArr.length; i++) {
+                particlesArr[i].update();
+                particlesArr[i].draw();
+
+                for (let j = i + 1; j < particlesArr.length; j++) {
+                    const dx = particlesArr[i].x - particlesArr[j].x;
+                    const dy = particlesArr[i].y - particlesArr[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 120) {
+                        ctx.beginPath();
+                        ctx.moveTo(particlesArr[i].x, particlesArr[i].y);
+                        ctx.lineTo(particlesArr[j].x, particlesArr[j].y);
+                        ctx.strokeStyle = `rgba(168, 85, 247, ${0.05 * (1 - dist / 120)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // ===== MOBILE MENU =====
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuClose = document.getElementById('mobileMenuClose');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+
+        function openMobileMenu() {
+            mobileMenu.classList.add('open');
+            mobileOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('open');
+            mobileOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        mobileMenuBtn.addEventListener('click', openMobileMenu);
+        mobileMenuClose.addEventListener('click', closeMobileMenu);
+        mobileOverlay.addEventListener('click', closeMobileMenu);
+
+        document.querySelectorAll('.mobile-menu-links a').forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+
+        // ===== NAVBAR SCROLL =====
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // ===== BACK TO TOP =====
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // ===== SCROLL REVEAL =====
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+
+                    // Count up animation
+                    const countElements = entry.target.querySelectorAll('.count-up');
+                    countElements.forEach(el => {
+                        if (el.dataset.counted) return;
+                        el.dataset.counted = 'true';
+
+                        const target = parseFloat(el.dataset.target);
+                        const isDecimal = el.dataset.decimal === 'true';
+                        const duration = 2000;
+                        const startTime = performance.now();
+
+                        function updateCount(currentTime) {
+                            const elapsed = currentTime - startTime;
+                            const progress = Math.min(elapsed / duration, 1);
+                            const eased = 1 - Math.pow(1 - progress, 3);
+                            const current = target * eased;
+
+                            if (isDecimal) {
+                                el.textContent = current.toFixed(1);
+                            } else {
+                                if (target >= 1000) {
+                                    el.textContent = Math.floor(current).toLocaleString();
+                                } else {
+                                    el.textContent = Math.floor(current);
+                                }
+                            }
+
+                            if (progress < 1) {
+                                requestAnimationFrame(updateCount);
+                            }
+                        }
+                        requestAnimationFrame(updateCount);
+                    });
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // ===== CONTACT FORM =====
+        const contactForm = document.getElementById('contactForm');
+        const formSuccess = document.getElementById('formSuccess');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            contactForm.style.display = 'none';
+            formSuccess.classList.add('active');
+
+            setTimeout(() => {
+                formSuccess.classList.remove('active');
+                contactForm.style.display = 'grid';
+                contactForm.reset();
+            }, 5000);
+        });
+
+        // ===== SMOOTH SCROLL =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offset = 100;
+                    const top = target.getBoundingClientRect().top + window.scrollY - offset;
+                    window.scrollTo({ top, behavior: 'smooth' });
+                }
+            });
+        });
+
+        // ===== CHART TIME BUTTONS =====
+        document.querySelectorAll('.chart-time-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.chart-time-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZynLuxe — Premium Fragrances</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --neon-orange: #ff5e00;
+            --dark-bg: #0a0a0a;
+            --card-bg: #111111;
+            --text-light: #f0f0f0;
+            --text-gray: #a0a0a0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .neon-text { color: var(--neon-orange); text-shadow: 0 0 10px rgba(255, 94, 0, 0.5); }
+        .btn-neon {
+            background: transparent;
+            border: 2px solid var(--neon-orange);
+            color: var(--neon-orange);
+            padding: 10px 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .btn-neon:hover {
+            background: var(--neon-orange);
+            color: white;
+            box-shadow: 0 0 20px var(--neon-orange);
+        }
+
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 20px 0;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 94, 0, 0.1);
+        }
+        .nav-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; letter-spacing: 2px; }
+        .nav-links { list-style: none; display: flex; gap: 30px; }
+        .nav-links a { text-decoration: none; color: var(--text-light); font-size: 14px; text-transform: uppercase; transition: 0.3s; }
+        .nav-links a:hover { color: var(--neon-orange); }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
+            position: relative;
+        }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: 4rem; line-height: 1.2; margin-bottom: 20px; }
+        .hero p { color: var(--text-gray); margin-bottom: 30px; font-size: 1.1rem; }
+
+        .products { padding: 100px 0; }
+        .section-title { text-align: center; font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 60px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        
+        .card {
+            background: var(--card-bg);
+            border: 1px solid #222;
+            padding: 20px;
+            transition: 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+        .card:hover { transform: translateY(-10px); border-color: var(--neon-orange); box-shadow: 0 10px 30px rgba(255, 94, 0, 0.1); }
+        
+        .card-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            filter: grayscale(40%);
+            transition: 0.4s;
+            background-color: #1a1a1a;
+        }
+        .card:hover .card-img { filter: grayscale(0%); }
+        
+        .card-info { padding-top: 20px; }
+        .card-name { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 5px; }
+        .card-notes { font-size: 0.85rem; color: var(--text-gray); margin-bottom: 15px; font-style: italic; }
+        .card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 15px; }
+        .price { font-size: 1.2rem; font-weight: 600; color: var(--neon-orange); }
+
+        footer { 
+            padding: 60px 0; 
+            text-align: center; 
+            border-top: 1px solid #222; 
+            color: var(--text-gray); 
+            font-size: 0.9rem; 
+            background: linear-gradient(to top, #0f0f0f, var(--dark-bg));
+        }
+        
+        .social-media {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 25px 0;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: #1a1a1a;
+            color: var(--text-light);
+            font-size: 20px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid #333;
+        }
+        
+        .social-link:hover {
+            color: var(--neon-orange);
+            border-color: var(--neon-orange);
+            box-shadow: 0 0 15px rgba(255, 94, 0, 0.4);
+            transform: translateY(-5px);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-content">
+            <div class="logo">Zyn<span class="neon-text">Luxe</span></div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#collection">Collection</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>Scent of <span class="neon-text">Ambition</span><br>Essence of Luxury</h1>
+            <p>Temukan aroma eksklusif yang mendefinisikan karakter Anda.</p>
+            <a href="#collection"><button class="btn-neon">Explore Collection</button></a>
+        </div>
+    </section>
+
+    <section id="collection" class="products">
+        <div class="container">
+            <h2 class="section-title">The <span class="neon-text">Signature</span> Series</h2>
+            
+            <div class="grid">
+                <div class="card">
+                    <img src="https://i.pinimg.com/736x/bd/dd/fb/bdddfb4f36cf313e8ae14cb3a4c25250.jpg" alt="Parfum 1" class="card-img">
+                    <div class="card-info">
+                        <h3 class="card-name">Dior Sauvage Parfum</h3>
+                        <p class="card-notes">Bergamot, Mandarin, Sandalwood, dan Tonka Bean.</p>
+                        <div class="card-footer">
+                            <span class="price">Rp 2.500.000</span>
+                            <button class="btn-neon" style="padding: 5px 15px; font-size: 12px;" onclick="addToCart('Midnight Blaze')">Buy</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="https://i.pinimg.com/736x/bb/10/9b/bb109b4ab39cec448c5f0de1ff0ef356.jpg" alt="Parfum 2" class="card-img">
+                    <div class="card-info">
+                        <h3 class="card-name">Jean Paul Gaultier - Le Male Le Parfum</h3>
+                        <p class="card-notes">Cardamom, Lavender, Iris, dan Vanilla</p>
+                        <div class="card-footer">
+                            <span class="price">Rp 1.800.000</span>
+                            <button class="btn-neon" style="padding: 5px 15px; font-size: 12px;" onclick="addToCart('Neon Citrus')">Buy</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="https://i.pinimg.com/736x/95/74/72/957472f6161018f358f7f2846eaef556.jpg" alt="Parfum 3" class="card-img">
+                    <div class="card-info">
+                        <h3 class="card-name">Louis Vuitton</h3>
+                        <p class="card-notes">Mandarin Orange, Sicilian Orange, dan Bergamot</p>
+                        <div class="card-footer">
+                            <span class="price">Rp 5.000.000</span>
+                            <button class="btn-neon" style="padding: 5px 15px; font-size: 12px;" onclick="addToCart('Royal Velvet')">Buy</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="https://i.pinimg.com/1200x/6c/db/95/6cdb951412d16fc26218f267e36a60e3.jpg" alt="Parfum 4" class="card-img">
+                    <div class="card-info">
+                        <h3 class="card-name">Mykonos My Ego</h3>
+                        <p class="card-notes">Fig, Pear, Bamboo, dan Cedarwood.</p>
+                        <div class="card-footer">
+                            <span class="price">Rp 200.000</span>
+                            <button class="btn-neon" style="padding: 5px 15px; font-size: 12px;" onclick="addToCart('Oceanic Fire')">Buy</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="https://i.pinimg.com/736x/0e/7b/1a/0e7b1a75ce8336d3c8f4df254fab6673.jpg" alt="Parfum 5" class="card-img">
+                    <div class="card-info">
+                        <h3 class="card-name">Afnan 9PM</h3>
+                        <p class="card-notes">Apple, Cinnamon, Wild Lavender, dan Vanilla</p>
+                        <div class="card-footer">
+                            <span class="price">Rp 500.000</span>
+                            <button class="btn-neon" style="padding: 5px 15px; font-size: 12px;" onclick="addToCart('Golden Ember')">Buy</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="https://i.pinimg.com/1200x/78/c4/1d/78c41d8349cd1c43d2bcd6fc5af92ddd.jpg" alt="Parfum 6" class="card-img">
+                    <div class="card-info">
+                        <h3 class="card-name">Tiziana Terenzi Orion</h3>
+                        <p class="card-notes">Pineapple, Apple, Birch, dan Incense.</p>
+                        <div class="card-footer">
+                            <span class="price">Rp 3.500.000</span>
+                            <button class="btn-neon" style="padding: 5px 15px; font-size: 12px;" onclick="addToCart('Obsidian Wood')">Buy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="logo" style="margin-bottom: 20px;">Zyn<span class="neon-text">luxe</span></div>
+            <p>Jakarta Selatan, Indonesia | contact@zynluxe.com</p>
+            
+            <div class="social-media">
+                <a href="https://instagram.com" class="social-link" target="_blank" title="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://wa.me/6281234567890" class="social-link" target="_blank" title="WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://tiktok.com" class="social-link" target="_blank" title="TikTok">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+            </div>
+
+            <p style="margin-top: 10px;">&copy; 2026 ZynLuxe Parfums. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function addToCart(productName) {
+            alert(productName + " telah ditambahkan ke keranjang belanja Anda!");
+        }
+
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.background = 'rgba(0, 0, 0, 0.95)';
+                nav.style.boxShadow = '0 2px 20px rgba(255, 94, 0, 0.1)';
+            } else {
+                nav.style.background = 'rgba(10, 10, 10, 0.8)';
+                nav.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
+
