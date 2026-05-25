@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZynLuxe — Premium Fragrances</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --neon-orange: #ff5e00;
+            --dark-bg: #0a0a0a;
+            --card-bg: #111111;
+            --text-light: #f0f0f0;
+            --text-gray: #a0a0a0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .neon-text { color: var(--neon-orange); text-shadow: 0 0 10px rgba(255, 94, 0, 0.5); }
+        .btn-neon {
+            background: transparent;
+            border: 2px solid var(--neon-orange);
+            color: var(--neon-orange);
+            padding: 10px 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-neon:hover {
+            background: var(--neon-orange);
+            color: white;
+            box-shadow: 0 0 20px var(--neon-orange);
+        }
+
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 20px 0;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 94, 0, 0.1);
+        }
+        .nav-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; letter-spacing: 2px; }
+        .nav-links { list-style: none; display: flex; gap: 30px; }
+        .nav-links a { text-decoration: none; color: var(--text-light); font-size: 14px; text-transform: uppercase; transition: 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--neon-orange); }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
+            position: relative;
+        }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: 4rem; line-height: 1.2; margin-bottom: 20px; }
+        .hero p { color: var(--text-gray); margin-bottom: 30px; font-size: 1.1rem; }
+
+        footer { 
+            padding: 30px 0; 
+            text-align: center; 
+            border-top: 1px solid #222; 
+            color: var(--text-gray); 
+            font-size: 0.9rem; 
+            background: #050505;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-content">
+            <div class="logo">Zyn<span class="neon-text">Luxe</span></div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="collection.html">Collection</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Scent of <span class="neon-text">Ambition</span><br>Essence of Luxury</h1>
+            <p>Temukan aroma eksklusif yang mendefinisikan karakter Anda.</p>
+            <a href="collection.html" class="btn-neon">Explore Collection</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 ZynLuxe Parfums. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.background = 'rgba(0, 0, 0, 0.95)';
+            } else {
+                nav.style.background = 'rgba(10, 10, 10, 0.8)';
+            }
+        });
+    </script>
+</body>
+</html>

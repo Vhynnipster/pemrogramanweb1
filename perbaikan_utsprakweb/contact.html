@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us — ZynLuxe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --neon-orange: #ff5e00;
+            --dark-bg: #0a0a0a;
+            --text-light: #f0f0f0;
+            --text-gray: #a0a0a0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .neon-text { color: var(--neon-orange); text-shadow: 0 0 10px rgba(255, 94, 0, 0.5); }
+
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 20px 0;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 94, 0, 0.1);
+        }
+        .nav-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; letter-spacing: 2px; }
+        .nav-links { list-style: none; display: flex; gap: 30px; }
+        .nav-links a { text-decoration: none; color: var(--text-light); font-size: 14px; text-transform: uppercase; transition: 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--neon-orange); }
+
+        .contact-section {
+            height: calc(100vh - 80px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 80px;
+            background: radial-gradient(circle at center, #111111 0%, #000000 100%);
+        }
+        
+        .contact-content h2 { font-family: 'Playfair Display', serif; font-size: 3rem; margin-bottom: 20px; }
+        .contact-info { font-size: 1.2rem; color: var(--text-gray); margin-bottom: 40px; line-height: 1.8; }
+
+        .social-media {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 35px 0;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: #1a1a1a;
+            color: var(--text-light);
+            font-size: 24px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid #333;
+        }
+        
+        .social-link:hover {
+            color: var(--neon-orange);
+            border-color: var(--neon-orange);
+            box-shadow: 0 0 15px rgba(255, 94, 0, 0.4);
+            transform: translateY(-5px);
+        }
+
+        footer { 
+            padding: 30px 0; 
+            text-align: center; 
+            border-top: 1px solid #222; 
+            color: var(--text-gray); 
+            font-size: 0.9rem; 
+            background: #050505;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .contact-section h2 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-content">
+            <div class="logo">Zyn<span class="neon-text">Luxe</span></div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="collection.html">Collection</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="contact-section">
+        <div class="container contact-content">
+            <h2>Langsung aja <span class="neon-text">Massee</span></h2>
+            <div class="contact-info">
+                <p><i class="fas fa-map-marker-alt neon-text"></i> Jakarta Selatan, Indonesia</p>
+                <p><i class="fas fa-envelope neon-text"></i> contact@zynluxe.com</p>
+            </div>
+            
+            <div class="social-media">
+                <a href="https://instagram.com" class="social-link" target="_blank" title="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://wa.me/6281234567890" class="social-link" target="_blank" title="WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://tiktok.com" class="social-link" target="_blank" title="TikTok">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 ZynLuxe Parfums. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
