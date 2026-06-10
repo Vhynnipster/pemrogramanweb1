@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rekap Tugas Pemrograman Web 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+                    },
+                    colors: {
+                        navy: '#0C1451',
+                        blue: '#4299FF',
+                        orange: '#F76102',
+                        gold: '#F8B62A',
+                    },
+                },
+            },
+        }
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="min-h-screen">
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+
+        <div class="mb-10 animate-fade-in-up">
+            <p class="text-xs font-mono uppercase tracking-[0.2em] text-navy font-bold mb-2">Pemrograman Web</p>
+            <h1 class="text-4xl sm:text-5xl font-black text-navy tracking-tight leading-none">Rekap Tugas</h1>
+            <p class="mt-2 text-sm text-navy font-semibold">Tahun Ajaran 2025/2026</p>
+            <div class="flex gap-1 mt-5">
+                <div class="neo-block flex-1 bg-navy animate-expand"></div>
+                <div class="neo-block w-16 bg-blue animate-expand" style="animation-delay: 0.2s;"></div>
+                <div class="neo-block w-10 bg-orange animate-expand" style="animation-delay: 0.35s;"></div>
+                <div class="neo-block w-10 bg-gold animate-expand" style="animation-delay: 0.5s;"></div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5 mb-8">
+            <div class="stat-card p-4 sm:p-5 animate-fade-in-up delay-100">
+                <div class="flex items-center gap-3">
+                    <div class="stat-icon w-11 h-11 bg-blue flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="text-xs text-navy font-bold uppercase tracking-wide">Total</p>
+                        <p class="text-3xl font-black text-navy font-mono" id="total-count">0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="stat-card p-4 sm:p-5 animate-fade-in-up delay-200">
+                <div class="flex items-center gap-3">
+                    <div class="stat-icon w-11 h-11 bg-gold flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="text-xs text-navy font-bold uppercase tracking-wide">Valid</p>
+                        <p class="text-3xl font-black text-navy font-mono" id="valid-count">0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="stat-card p-4 sm:p-5 animate-fade-in-up delay-300">
+                <div class="flex items-center gap-3">
+                    <div class="stat-icon w-11 h-11 bg-orange flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="text-xs text-navy font-bold uppercase tracking-wide">Tidak Valid</p>
+                        <p class="text-3xl font-black text-orange font-mono" id="invalid-count">0</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-6 animate-fade-in-up delay-400">
+            <div class="relative">
+                <input
+                    type="text"
+                    id="search"
+                    placeholder="Cari berdasarkan NIM..."
+                    class="search-input w-full px-4 py-3 pl-11 text-sm text-navy placeholder-navy/40 outline-none font-mono font-semibold"
+                />
+                <svg class="search-icon absolute left-3.5 top-3.5 h-4 w-4 text-navy" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+            </div>
+        </div>
+
+        <div id="card-container" class="flex flex-col gap-4 lg:hidden animate-fade-in-up delay-500"></div>
+        <div id="no-results-card" class="hidden px-4 py-12 text-center text-navy lg:hidden">
+            <p class="text-sm no-results-msg">Tidak ada data yang cocok dengan pencarian.</p>
+        </div>
+
+        <div class="table-container hidden lg:block animate-fade-in-up delay-500">
+            <div class="overflow-x-auto">
+                <table class="min-w-full">
+                    <thead>
+                        <tr class="bg-navy">
+                            <th class="px-5 py-3.5 text-left text-[11px] font-black uppercase tracking-[0.15em] text-blue w-12">No</th>
+                            <th class="px-5 py-3.5 text-left text-[11px] font-black uppercase tracking-[0.15em] text-blue w-28">NIM</th>
+                            <th class="px-5 py-3.5 text-left text-[11px] font-black uppercase tracking-[0.15em] text-blue">Nama</th>
+                            <th class="px-5 py-3.5 text-left text-[11px] font-black uppercase tracking-[0.15em] text-blue">GitHub Code</th>
+                            <th class="px-5 py-3.5 text-left text-[11px] font-black uppercase tracking-[0.15em] text-blue">GitHub Page</th>
+                            <th class="px-5 py-3.5 text-center text-[11px] font-black uppercase tracking-[0.15em] text-blue w-28">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body" class="divide-y-2 divide-navy"></tbody>
+                </table>
+            </div>
+            <div id="no-results" class="hidden px-4 py-12 text-center text-navy">
+                <p class="text-sm no-results-msg">Tidak ada data yang cocok dengan pencarian.</p>
+            </div>
+        </div>
+
+        <p class="mt-6 text-[11px] text-navy text-right font-mono font-semibold animate-fade-in delay-600" id="last-updated"></p>
+    </div>
+
+    <script>
+        // Loaded from JSON at runtime.
+        // Source: `students.json` generated from `form-response.clean.csv`.
+        let students = [];
+
+        function normalizeUrl(u) {
+            if (!u) return "";
+            return String(u).trim().replace(/\/+$/, "");
+        }
+
+        function tryParseGithubRepoFromCodeUrl(urlCode) {
+            const u = normalizeUrl(urlCode);
+            // Accept github.com/<owner>/<repo>[...]
+            const m = u.match(/^https?:\/\/github\.com\/([^\/]+)\/([^\/#\?]+)(?:[\/#\?].*)?$/i);
+            if (!m) return null;
+            const owner = m[1];
+            const repo = m[2].replace(/\.git$/i, "");
+            if (!owner || !repo) return null;
+            return { owner, repo };
+        }
+
+        function tryParseGithubRepoFromPageUrl(urlPage) {
+            const u = normalizeUrl(urlPage);
+            // Accept <owner>.github.io/<repo>[...]
+            const m = u.match(/^https?:\/\/([^\/]+)\.github\.io\/([^\/#\?]+)(?:[\/#\?].*)?$/i);
+            if (!m) return null;
+            const owner = m[1];
+            const repo = m[2];
+            if (!owner || !repo) return null;
+            return { owner, repo };
+        }
+
+        function isValidGithubCodeUrl(urlCode) {
+            return !!tryParseGithubRepoFromCodeUrl(urlCode);
+        }
+
+        function isValidGithubPageUrl(urlPage) {
+            return !!tryParseGithubRepoFromPageUrl(urlPage);
+        }
+
+        function fillMissingGithubUrls(student) {
+            const urlCode = normalizeUrl(student.urlCode);
+            const urlPage = normalizeUrl(student.urlPage);
+
+            // If only urlCode exists, infer urlPage
+            if (urlCode && !urlPage) {
+                const parsed = tryParseGithubRepoFromCodeUrl(urlCode);
+                if (parsed) student.urlPage = `https://${parsed.owner}.github.io/${parsed.repo}`;
+            }
+
+            // If only urlPage exists, infer urlCode
+            if (!normalizeUrl(student.urlCode) && urlPage) {
+                const parsed = tryParseGithubRepoFromPageUrl(urlPage);
+                if (parsed) student.urlCode = `https://github.com/${parsed.owner}/${parsed.repo}`;
+            }
+
+            // If we can now confirm both URLs are structurally valid, mark as valid.
+            // (We only validate URL shape here, not repository existence.)
+            const finalCode = normalizeUrl(student.urlCode);
+            const finalPage = normalizeUrl(student.urlPage);
+            if (finalCode && finalPage && isValidGithubCodeUrl(finalCode) && isValidGithubPageUrl(finalPage)) {
+                student.status = "valid";
+            }
+        }
+
+        async function loadStudentsFromJson() {
+            // Note: if you open `index.html` via file://, browsers may block fetch().
+            // Prefer running via a local server or GitHub Pages.
+            const res = await fetch("students.json", { cache: "no-store" });
+            if (!res.ok) throw new Error(`Failed to load JSON: ${res.status}`);
+            students = await res.json();
+            students.forEach(fillMissingGithubUrls);
+            students.sort((a, b) => (a.nim || "").localeCompare(b.nim || ""));
+
+            const lastUpdatedEl = document.getElementById("last-updated");
+            const timestamps = students.map(s => s.timestamp).filter(Boolean);
+            if (timestamps.length) lastUpdatedEl.textContent = `Last updated: ${timestamps[timestamps.length - 1]}`;
+        }
+
+        const STAGGER_DELAY = 30;
+        const MAX_STAGGER_ITEMS = 15;
+
+        function animateCount(el, target) {
+            const duration = 500;
+            const start = performance.now();
+            const initial = parseInt(el.textContent) || 0;
+
+            function tick(now) {
+                const elapsed = now - start;
+                const progress = Math.min(elapsed / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                el.textContent = Math.round(initial + (target - initial) * eased);
+                if (progress < 1) requestAnimationFrame(tick);
+            }
+            requestAnimationFrame(tick);
+            el.classList.add('animate-count-pulse');
+            setTimeout(() => el.classList.remove('animate-count-pulse'), 350);
+        }
+
+        function maskName(name) {
+            return name.split(' ').map(word => {
+                if (word.length <= 2) return word;
+                return word[0] + '*'.repeat(word.length - 2) + word[word.length - 1];
+            }).join(' ');
+        }
+
+        function renderLink(url, type) {
+            if (!url) return '<span class="text-navy/30 text-sm font-bold">-</span>';
+            const cls = type === 'code' ? 'link-code' : 'link-page';
+            const short = url.replace(/^https?:\/\//, '');
+            return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="${cls} break-all text-xs sm:text-sm font-mono">${short}</a>`;
+        }
+
+        function getStudentHtml(s, i) {
+            const isValid = s.status === "valid";
+            const statusBadge = isValid
+                ? '<span class="badge-valid inline-flex items-center px-2.5 py-1 rounded-md text-[10px]">Valid</span>'
+                : '<span class="badge-invalid inline-flex items-center px-2.5 py-1 rounded-md text-[10px]">Invalid</span>';
+
+            const codeLink = isValid
+                ? renderLink(s.urlCode, 'code')
+                : (s.urlCode ? `<span class="text-orange text-xs font-mono font-bold break-all">${s.urlCode.replace(/^https?:\/\//, '')}</span>` : '<span class="text-navy/30 text-sm font-bold">-</span>');
+            const pageLink = isValid
+                ? renderLink(s.urlPage, 'page')
+                : '<span class="text-navy/30 text-sm font-bold">-</span>';
+
+            return {
+                statusBadge, codeLink, pageLink,
+                rowClass: isValid ? "table-row" : "table-row table-row-invalid",
+                cardClass: isValid ? "mobile-card mobile-card-valid" : "mobile-card mobile-card-invalid",
+            };
+        }
+
+        function staggerDelay(i) {
+            return Math.min(i, MAX_STAGGER_ITEMS) * STAGGER_DELAY;
+        }
+
+        function renderCards(data) {
+            const container = document.getElementById("card-container");
+            const noResults = document.getElementById("no-results-card");
+
+            if (data.length === 0) {
+                container.innerHTML = "";
+                noResults.classList.remove("hidden");
+                return;
+            }
+
+            noResults.classList.add("hidden");
+
+            container.innerHTML = data.map((s, i) => {
+                const { statusBadge, codeLink, pageLink, cardClass } = getStudentHtml(s, i);
+                const delay = staggerDelay(i);
+                return `<div class="${cardClass} p-4 stagger-card" style="animation-delay: ${delay}ms">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="flex items-center gap-2.5">
+                            <span class="text-xs font-mono font-bold text-navy bg-gold px-1.5 py-0.5 border-2 border-navy">${i + 1}</span>
+                            <span class="text-sm font-mono font-bold text-navy">${s.nim}</span>
+                        </div>
+                        ${statusBadge}
+                    </div>
+                    <p class="text-sm text-navy font-mono font-medium tracking-wider mb-3 ml-8">${maskName(s.nama)}</p>
+                    <div class="ml-8 space-y-2">
+                        <div class="flex items-start gap-2">
+                            <svg class="w-4 h-4 text-navy mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"/></svg>
+                            <div>${codeLink}</div>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <svg class="w-4 h-4 text-navy mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418"/></svg>
+                            <div>${pageLink}</div>
+                        </div>
+                    </div>
+                </div>`;
+            }).join("");
+        }
+
+        function renderTable(data) {
+            const tbody = document.getElementById("table-body");
+            const noResults = document.getElementById("no-results");
+
+            if (data.length === 0) {
+                tbody.innerHTML = "";
+                noResults.classList.remove("hidden");
+                return;
+            }
+
+            noResults.classList.add("hidden");
+
+            tbody.innerHTML = data.map((s, i) => {
+                const { statusBadge, codeLink, pageLink, rowClass } = getStudentHtml(s, i);
+                const delay = staggerDelay(i);
+                return `<tr class="${rowClass} stagger-row" style="animation-delay: ${delay}ms">
+                    <td class="px-5 py-3 text-sm text-navy font-mono font-bold">${i + 1}</td>
+                    <td class="px-5 py-3 text-sm font-mono font-bold text-navy">${s.nim}</td>
+                    <td class="px-5 py-3 text-sm text-navy font-mono font-medium tracking-wider">${maskName(s.nama)}</td>
+                    <td class="px-5 py-3 text-sm max-w-xs">${codeLink}</td>
+                    <td class="px-5 py-3 text-sm max-w-xs">${pageLink}</td>
+                    <td class="px-5 py-3 text-center">${statusBadge}</td>
+                </tr>`;
+            }).join("");
+        }
+
+        function updateCounts(data) {
+            const total = data.length;
+            const valid = data.filter(s => s.status === "valid").length;
+            const invalid = data.filter(s => s.status === "invalid").length;
+            animateCount(document.getElementById("total-count"), total);
+            animateCount(document.getElementById("valid-count"), valid);
+            animateCount(document.getElementById("invalid-count"), invalid);
+        }
+
+        function filterStudents(query) {
+            const q = query.toLowerCase().trim();
+            if (!q) return students;
+            return students.filter(s => s.nim.toLowerCase().includes(q));
+        }
+
+        let debounceTimer;
+        function renderAll(data) {
+            renderTable(data);
+            renderCards(data);
+        }
+
+        document.getElementById("search").addEventListener("input", function(e) {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                const filtered = filterStudents(e.target.value);
+                updateCounts(filtered);
+                renderAll(filtered);
+            }, 150);
+        });
+
+        (async () => {
+            try {
+                await loadStudentsFromJson();
+            } catch (e) {
+                console.error(e);
+                const lastUpdatedEl = document.getElementById("last-updated");
+                lastUpdatedEl.textContent = "Data load failed (open via server / GitHub Pages).";
+            }
+            updateCounts(students);
+            renderAll(students);
+        })();
+    </script>
+</body>
+</html>

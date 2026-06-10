@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sales Analytics Dashboard</title>
+  <style>
+    /* Menggunakan sistem warna modern (mirip Tailwind CSS) untuk kontras yang baik */
+    :root {
+      --bg-body: #f8fafc;
+      --bg-card: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+      
+      --trend-up-text: #15803d; /* Hijau tua untuk aksesibilitas text */
+      --trend-up-bg: #dcfce7;   /* Hijau muda untuk background ikon */
+      
+      --trend-down-text: #b91c1c; /* Merah tua untuk aksesibilitas text */
+      --trend-down-bg: #fee2e2;   /* Merah muda untuk background ikon */
+
+      --icon-primary-bg: #f1f5f9;
+      --icon-primary-text: #3b82f6;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      padding: 2rem;
+    }
+
+    /* Container dengan CSS Grid */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr; /* Default 1 kolom untuk mobile */
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Media Query untuk Tablet/Desktop (3 Kolom) */
+    @media (min-width: 768px) {
+      .dashboard-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    /* Styling Card Utama */
+    .metric-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .metric-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Header Card (Judul & Ikon) */
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .card-title {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .card-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background-color: var(--icon-primary-bg);
+      color: var(--icon-primary-text);
+      border-radius: 8px;
+    }
+
+    .card-icon svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    /* Nilai Utama / Value */
+    .card-value {
+      font-size: 1.875rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 0.75rem;
+    }
+
+    /* Tren Kenaikan/Penurunan */
+    .card-trend {
+      display: flex;
+      align-items: center;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .trend-badge {
+      display: flex;
+      align-items: center;
+      padding: 0.25rem 0.5rem;
+      border-radius: 9999px;
+      margin-right: 0.5rem;
+      font-weight: 600;
+      font-size: 0.75rem;
+    }
+
+    .trend-badge svg {
+      width: 14px;
+      height: 14px;
+      margin-right: 0.25rem;
+    }
+
+    /* Varian Tren */
+    .trend-positive .trend-badge {
+      background-color: var(--trend-up-bg);
+      color: var(--trend-up-text);
+    }
+
+    .trend-negative .trend-badge {
+      background-color: var(--trend-down-bg);
+      color: var(--trend-down-text);
+    }
+
+    .trend-label {
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="dashboard-grid">
+    
+    <div class="metric-card">
+      <div class="card-header">
+        <h3 class="card-title">Total Pendapatan</h3>
+        <div class="card-icon">
+          <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+        </div>
+      </div>
+      <div class="card-value" id="revenue-value" data-value="245000000">0</div>
+      <div class="card-trend trend-positive">
+        <span class="trend-badge">
+          <svg fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+          </svg>
+          +12.5%
+        </span>
+        <span class="trend-label">vs bulan lalu</span>
+      </div>
+    </div>
+
+    <div class="metric-card">
+      <div class="card-header">
+        <h3 class="card-title">Produk Terjual</h3>
+        <div class="card-icon">
+          <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+          </svg>
+        </div>
+      </div>
+      <div class="card-value">3.425</div>
+      <div class="card-trend trend-negative">
+        <span class="trend-badge">
+          <svg fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 4.5l-15 15m0 0h11.25m-11.25 0V8.25" />
+          </svg>
+          -5.2%
+        </span>
+        <span class="trend-label">vs bulan lalu</span>
+      </div>
+    </div>
+
+    <div class="metric-card">
+      <div class="card-header">
+        <h3 class="card-title">Pengguna Baru</h3>
+        <div class="card-icon">
+          <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+          </svg>
+        </div>
+      </div>
+      <div class="card-value">1.890</div>
+      <div class="card-trend trend-positive">
+        <span class="trend-badge">
+          <svg fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+          </svg>
+          +8.4%
+        </span>
+        <span class="trend-label">vs bulan lalu</span>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // Script untuk memformat data angka (revenue) menjadi mata uang Rupiah secara otomatis
+    document.addEventListener("DOMContentLoaded", () => {
+      const revenueElement = document.getElementById("revenue-value");
+      
+      // Ambil raw value dari attribute data-value
+      const rawValue = parseInt(revenueElement.getAttribute("data-value"), 10);
+      
+      // Gunakan Intl.NumberFormat untuk format IDR
+      const formattedValue = new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+      }).format(rawValue);
+
+      // Suntikkan hasil format kembali ke elemen
+      revenueElement.textContent = formattedValue;
+    });
+  </script>
+</body>
+</html>

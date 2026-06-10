@@ -618,7 +618,7 @@
             gap: 32px;
             padding-top: 16px;
         }
-
+  
         .hero-stat-item {}
 
         .hero-stat-number {
@@ -2408,7 +2408,6 @@
         </div>
     </section>
 
-    <!-- Platform Section -->
     <section class="section section-lg" id="platform">
         <div style="position: absolute; top: 0; right: 0; width: 600px; height: 600px; background: rgba(168, 85, 247, 0.05); border-radius: 50%; filter: blur(100px);"></div>
         <div class="container" style="position: relative;">
@@ -3140,7 +3139,6 @@
             }
         });
 
-        // ===== BACK TO TOP =====
         const backToTop = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 500) {
@@ -3153,14 +3151,12 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
-        // ===== SCROLL REVEAL =====
         const revealElements = document.querySelectorAll('.reveal');
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
 
-                    // Count up animation
                     const countElements = entry.target.querySelectorAll('.count-up');
                     countElements.forEach(el => {
                         if (el.dataset.counted) return;
@@ -3199,7 +3195,6 @@
 
         revealElements.forEach(el => revealObserver.observe(el));
 
-        // ===== CONTACT FORM =====
         const contactForm = document.getElementById('contactForm');
         const formSuccess = document.getElementById('formSuccess');
 
@@ -3215,7 +3210,6 @@
             }, 5000);
         });
 
-        // ===== SMOOTH SCROLL =====
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -3228,7 +3222,6 @@
             });
         });
 
-        // ===== CHART TIME BUTTONS =====
         document.querySelectorAll('.chart-time-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 document.querySelectorAll('.chart-time-btn').forEach(b => b.classList.remove('active'));
