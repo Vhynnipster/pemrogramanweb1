@@ -1,240 +1,247 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sales Analytics Dashboard</title>
-  <style>
-    /* Menggunakan sistem warna modern (mirip Tailwind CSS) untuk kontras yang baik */
-    :root {
-      --bg-body: #f8fafc;
-      --bg-card: #ffffff;
-      --text-main: #0f172a;
-      --text-muted: #64748b;
-      --border-color: #e2e8f0;
-      
-      --trend-up-text: #15803d; /* Hijau tua untuk aksesibilitas text */
-      --trend-up-bg: #dcfce7;   /* Hijau muda untuk background ikon */
-      
-      --trend-down-text: #b91c1c; /* Merah tua untuk aksesibilitas text */
-      --trend-down-bg: #fee2e2;   /* Merah muda untuk background ikon */
-
-      --icon-primary-bg: #f1f5f9;
-      --icon-primary-text: #3b82f6;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background-color: var(--bg-body);
-      color: var(--text-main);
-      padding: 2rem;
-    }
-
-    /* Container dengan CSS Grid */
-    .dashboard-grid {
-      display: grid;
-      grid-template-columns: 1fr; /* Default 1 kolom untuk mobile */
-      gap: 1.5rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    /* Media Query untuk Tablet/Desktop (3 Kolom) */
-    @media (min-width: 768px) {
-      .dashboard-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-
-    /* Styling Card Utama */
-    .metric-card {
-      background-color: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 1.5rem;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .metric-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Header Card (Judul & Ikon) */
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1rem;
-    }
-
-    .card-title {
-      font-size: 0.875rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .card-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 40px;
-      height: 40px;
-      background-color: var(--icon-primary-bg);
-      color: var(--icon-primary-text);
-      border-radius: 8px;
-    }
-
-    .card-icon svg {
-      width: 24px;
-      height: 24px;
-    }
-
-    /* Nilai Utama / Value */
-    .card-value {
-      font-size: 1.875rem;
-      font-weight: 700;
-      color: var(--text-main);
-      margin-bottom: 0.75rem;
-    }
-
-    /* Tren Kenaikan/Penurunan */
-    .card-trend {
-      display: flex;
-      align-items: center;
-      font-size: 0.875rem;
-      font-weight: 500;
-    }
-
-    .trend-badge {
-      display: flex;
-      align-items: center;
-      padding: 0.25rem 0.5rem;
-      border-radius: 9999px;
-      margin-right: 0.5rem;
-      font-weight: 600;
-      font-size: 0.75rem;
-    }
-
-    .trend-badge svg {
-      width: 14px;
-      height: 14px;
-      margin-right: 0.25rem;
-    }
-
-    /* Varian Tren */
-    .trend-positive .trend-badge {
-      background-color: var(--trend-up-bg);
-      color: var(--trend-up-text);
-    }
-
-    .trend-negative .trend-badge {
-      background-color: var(--trend-down-bg);
-      color: var(--trend-down-text);
-    }
-
-    .trend-label {
-      color: var(--text-muted);
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HostMart — Jual Beli & Hosting Terpercaya</title>
+  <meta name="description" content="HostMart adalah platform jual beli produk digital sekaligus penyedia layanan hosting cepat dan andal." />
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased">
 
-  <div class="dashboard-grid">
-    
-    <div class="metric-card">
-      <div class="card-header">
-        <h3 class="card-title">Total Pendapatan</h3>
-        <div class="card-icon">
-          <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-          </svg>
-        </div>
+  <!-- Navbar -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200">
+    <nav class="max-w-6xl mx-auto flex items-center justify-between px-4 py-4">
+      <a href="#" class="flex items-center gap-2">
+        <span class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-600 text-white font-bold">H</span>
+        <span class="text-xl font-bold text-slate-900">HostMart</span>
+      </a>
+      <ul class="hidden md:flex items-center gap-8 text-sm font-medium">
+        <li><a href="#produk" class="hover:text-emerald-600 transition">Produk</a></li>
+        <li><a href="#hosting" class="hover:text-emerald-600 transition">Hosting</a></li>
+        <li><a href="#cara-kerja" class="hover:text-emerald-600 transition">Cara Kerja</a></li>
+        <li><a href="#kontak" class="hover:text-emerald-600 transition">Kontak</a></li>
+      </ul>
+      <div class="flex items-center gap-3">
+        <a href="#" class="hidden sm:inline text-sm font-medium hover:text-emerald-600">Masuk</a>
+        <a href="#" class="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700 transition">Daftar</a>
       </div>
-      <div class="card-value" id="revenue-value" data-value="245000000">0</div>
-      <div class="card-trend trend-positive">
-        <span class="trend-badge">
-          <svg fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
-          </svg>
-          +12.5%
-        </span>
-        <span class="trend-label">vs bulan lalu</span>
-      </div>
-    </div>
+    </nav>
+  </header>
 
-    <div class="metric-card">
-      <div class="card-header">
-        <h3 class="card-title">Produk Terjual</h3>
-        <div class="card-icon">
-          <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-          </svg>
-        </div>
+  <!-- Hero -->
+  <section class="max-w-6xl mx-auto px-4 py-16 md:py-24 grid md:grid-cols-2 gap-10 items-center">
+    <div>
+      <span class="inline-block rounded-full bg-emerald-100 text-emerald-700 px-3 py-1 text-xs font-semibold mb-4">Platform Jual Beli + Hosting</span>
+      <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight text-balance">
+        Jual Beli Mudah, Hosting Website Anti Ribet
+      </h1>
+      <p class="mt-4 text-lg text-slate-600 leading-relaxed">
+        Pasarkan produk Anda dan langsung jalankan toko online dengan hosting cepat dalam satu platform. Aman, terpercaya, dan mudah digunakan.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-4">
+        <a href="#hosting" class="rounded-lg bg-emerald-600 px-6 py-3 font-semibold text-white hover:bg-emerald-700 transition">Mulai Hosting</a>
+        <a href="#produk" class="rounded-lg border border-slate-300 px-6 py-3 font-semibold text-slate-700 hover:bg-slate-100 transition">Lihat Produk</a>
       </div>
-      <div class="card-value">3.425</div>
-      <div class="card-trend trend-negative">
-        <span class="trend-badge">
-          <svg fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 4.5l-15 15m0 0h11.25m-11.25 0V8.25" />
-          </svg>
-          -5.2%
-        </span>
-        <span class="trend-label">vs bulan lalu</span>
+      <div class="mt-8 flex gap-8 text-sm">
+        <div><p class="text-2xl font-bold text-slate-900">10rb+</p><p class="text-slate-500">Penjual Aktif</p></div>
+        <div><p class="text-2xl font-bold text-slate-900">99.9%</p><p class="text-slate-500">Uptime Server</p></div>
+        <div><p class="text-2xl font-bold text-slate-900">24/7</p><p class="text-slate-500">Dukungan</p></div>
       </div>
     </div>
-
-    <div class="metric-card">
-      <div class="card-header">
-        <h3 class="card-title">Pengguna Baru</h3>
-        <div class="card-icon">
-          <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
-          </svg>
-        </div>
+    <div class="rounded-2xl bg-white shadow-xl border border-slate-200 p-6">
+      <div class="rounded-xl bg-slate-900 p-4 text-emerald-400 font-mono text-sm">
+        <p>$ deploy toko-saya.com</p>
+        <p class="text-slate-400">✓ Membangun website...</p>
+        <p class="text-slate-400">✓ Mengaktifkan hosting...</p>
+        <p class="text-emerald-400">✓ Toko online aktif! 🚀</p>
       </div>
-      <div class="card-value">1.890</div>
-      <div class="card-trend trend-positive">
-        <span class="trend-badge">
-          <svg fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
-          </svg>
-          +8.4%
-        </span>
-        <span class="trend-label">vs bulan lalu</span>
+      <div class="mt-4 grid grid-cols-3 gap-3">
+        <div class="rounded-lg bg-emerald-50 p-3 text-center"><p class="font-bold text-emerald-700">SSL</p><p class="text-xs text-slate-500">Gratis</p></div>
+        <div class="rounded-lg bg-emerald-50 p-3 text-center"><p class="font-bold text-emerald-700">SSD</p><p class="text-xs text-slate-500">Cepat</p></div>
+        <div class="rounded-lg bg-emerald-50 p-3 text-center"><p class="font-bold text-emerald-700">CDN</p><p class="text-xs text-slate-500">Global</p></div>
       </div>
     </div>
+  </section>
 
-  </div>
+  <!-- Produk Jual Beli -->
+  <section id="produk" class="bg-white py-16 border-y border-slate-200">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-slate-900">Produk Terlaris</h2>
+        <p class="mt-2 text-slate-600">Temukan berbagai produk digital dari penjual terpercaya.</p>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Card produk -->
+        <article class="rounded-xl border border-slate-200 overflow-hidden hover:shadow-lg transition">
+          <div class="h-40 bg-gradient-to-br from-emerald-400 to-teal-500"></div>
+          <div class="p-5">
+            <span class="text-xs font-semibold text-emerald-600">TEMPLATE</span>
+            <h3 class="mt-1 font-bold text-slate-900">Template Toko Online</h3>
+            <p class="mt-1 text-sm text-slate-500">Desain responsif siap pakai untuk bisnis Anda.</p>
+            <div class="mt-4 flex items-center justify-between">
+              <span class="text-lg font-bold text-slate-900">Rp 150.000</span>
+              <button class="rounded-lg bg-emerald-600 px-3 py-1.5 text-sm font-semibold text-white hover:bg-emerald-700 transition">Beli</button>
+            </div>
+          </div>
+        </article>
+        <article class="rounded-xl border border-slate-200 overflow-hidden hover:shadow-lg transition">
+          <div class="h-40 bg-gradient-to-br from-teal-400 to-cyan-500"></div>
+          <div class="p-5">
+            <span class="text-xs font-semibold text-emerald-600">PLUGIN</span>
+            <h3 class="mt-1 font-bold text-slate-900">Plugin Pembayaran</h3>
+            <p class="mt-1 text-sm text-slate-500">Integrasi pembayaran lokal dan internasional.</p>
+            <div class="mt-4 flex items-center justify-between">
+              <span class="text-lg font-bold text-slate-900">Rp 95.000</span>
+              <button class="rounded-lg bg-emerald-600 px-3 py-1.5 text-sm font-semibold text-white hover:bg-emerald-700 transition">Beli</button>
+            </div>
+          </div>
+        </article>
+        <article class="rounded-xl border border-slate-200 overflow-hidden hover:shadow-lg transition">
+          <div class="h-40 bg-gradient-to-br from-emerald-500 to-green-600"></div>
+          <div class="p-5">
+            <span class="text-xs font-semibold text-emerald-600">DOMAIN</span>
+            <h3 class="mt-1 font-bold text-slate-900">Domain .com</h3>
+            <p class="mt-1 text-sm text-slate-500">Nama domain profesional untuk brand Anda.</p>
+            <div class="mt-4 flex items-center justify-between">
+              <span class="text-lg font-bold text-slate-900">Rp 120.000<span class="text-sm font-normal text-slate-500">/thn</span></span>
+              <button class="rounded-lg bg-emerald-600 px-3 py-1.5 text-sm font-semibold text-white hover:bg-emerald-700 transition">Beli</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
 
-  <script>
-    // Script untuk memformat data angka (revenue) menjadi mata uang Rupiah secara otomatis
-    document.addEventListener("DOMContentLoaded", () => {
-      const revenueElement = document.getElementById("revenue-value");
-      
-      // Ambil raw value dari attribute data-value
-      const rawValue = parseInt(revenueElement.getAttribute("data-value"), 10);
-      
-      // Gunakan Intl.NumberFormat untuk format IDR
-      const formattedValue = new Intl.NumberFormat("id-ID", {
-        style: "currency",
-        currency: "IDR",
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0
-      }).format(rawValue);
+  <!-- Paket Hosting -->
+  <section id="hosting" class="py-16">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-slate-900">Paket Hosting</h2>
+        <p class="mt-2 text-slate-600">Pilih paket hosting sesuai kebutuhan bisnis Anda.</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- Paket -->
+        <div class="rounded-2xl border border-slate-200 bg-white p-8 flex flex-col">
+          <h3 class="font-bold text-slate-900 text-lg">Pemula</h3>
+          <p class="mt-1 text-sm text-slate-500">Cocok untuk website pribadi.</p>
+          <p class="mt-6"><span class="text-4xl font-extrabold text-slate-900">Rp 25rb</span><span class="text-slate-500">/bln</span></p>
+          <ul class="mt-6 space-y-3 text-sm text-slate-600 flex-1">
+            <li class="flex gap-2"><span class="text-emerald-600">✓</span> 1 Website</li>
+            <li class="flex gap-2"><span class="text-emerald-600">✓</span> 10 GB SSD Storage</li>
+            <li class="flex gap-2"><span class="text-emerald-600">✓</span> SSL Gratis</li>
+            <li class="flex gap-2"><span class="text-emerald-600">✓</span> Bandwidth 50 GB</li>
+          </ul>
+          <a href="#" class="mt-8 rounded-lg border border-emerald-600 px-4 py-2.5 text-center font-semibold text-emerald-600 hover:bg-emerald-50 transition">Pilih Paket</a>
+        </div>
+        <!-- Paket populer -->
+        <div class="rounded-2xl border-2 border-emerald-600 bg-white p-8 flex flex-col relative shadow-lg">
+          <span class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-emerald-600 px-3 py-1 text-xs font-semibold text-white">Paling Populer</span>
+          <h3 class="font-bold text-slate-900 text-lg">Bisnis</h3>
+          <p class="mt-1 text-sm text-slate-500">Untuk toko online berkembang.</p>
+          <p class="mt-6"><span class="text-4xl font-extrabold text-slate-900">Rp 65rb</span><span class="text-slate-500">/bln</span></p>
+          <ul class="mt-6 space-y-3 text-sm text-slate-600 flex-1">
+            <li class="flex gap-2"><span class="text-emerald-600">✓</span> 10 Website</li>
+            <li class="flex gap-2"><span class="text-emerald-600">✓</span> 50 GB SSD Storage</li>
+            <li class="flex gap-2"><span class="text-emerald-600">✓</span> SSL & CDN Gratis</li>
+            <li class="flex gap-2"><span class="text-emerald-600">✓</span> Bandwidth Unlimited</li>
+          </ul>
+          <a href="#" class="mt-8 rounded-lg bg-emerald-600 px-4 py-2.5 text-center font-semibold text-white hover:bg-emerald-700 transition">Pilih Paket</a>
+        </div>
+        <!-- Paket -->
+        <div class="rounded-2xl border border-slate-200 bg-white p-8 flex flex-col">
+          <h3 class="font-bold text-slate-900 text-lg">Profesional</h3>
+          <p class="mt-1 text-sm text-slate-500">Untuk traffic tinggi.</p>
+          <p class="mt-6"><span class="text-4xl font-extrabold text-slate-900">Rp 150rb</span><span class="text-slate-500">/bln</span></p>
+          <ul class="mt-6 space-y-3 text-sm text-slate-600 flex-1">
+            <li class="flex gap-2"><span class="text-emerald-600">✓</span> Website Unlimited</li>
+            <li class="flex gap-2"><span class="text-emerald-600">✓</span> 200 GB SSD Storage</li>
+            <li class="flex gap-2"><span class="text-emerald-600">✓</span> SSL, CDN & Backup Harian</li>
+            <li class="flex gap-2"><span class="text-emerald-600">✓</span> Prioritas Dukungan 24/7</li>
+          </ul>
+          <a href="#" class="mt-8 rounded-lg border border-emerald-600 px-4 py-2.5 text-center font-semibold text-emerald-600 hover:bg-emerald-50 transition">Pilih Paket</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-      // Suntikkan hasil format kembali ke elemen
-      revenueElement.textContent = formattedValue;
-    });
-  </script>
+  <!-- Cara Kerja -->
+  <section id="cara-kerja" class="bg-white py-16 border-y border-slate-200">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-slate-900">Cara Kerja</h2>
+        <p class="mt-2 text-slate-600">Mulai berjualan dengan hosting hanya dalam 3 langkah.</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8 text-center">
+        <div>
+          <div class="mx-auto h-12 w-12 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-lg">1</div>
+          <h3 class="mt-4 font-bold text-slate-900">Daftar Akun</h3>
+          <p class="mt-2 text-sm text-slate-600 leading-relaxed">Buat akun gratis dan pilih paket hosting yang sesuai.</p>
+        </div>
+        <div>
+          <div class="mx-auto h-12 w-12 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-lg">2</div>
+          <h3 class="mt-4 font-bold text-slate-900">Unggah Produk</h3>
+          <p class="mt-2 text-sm text-slate-600 leading-relaxed">Tambahkan produk yang ingin Anda jual ke toko online.</p>
+        </div>
+        <div>
+          <div class="mx-auto h-12 w-12 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-lg">3</div>
+          <h3 class="mt-4 font-bold text-slate-900">Mulai Jualan</h3>
+          <p class="mt-2 text-sm text-slate-600 leading-relaxed">Website langsung online dan siap menerima pesanan.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4">
+      <div class="rounded-2xl bg-emerald-600 px-8 py-12 text-center text-white">
+        <h2 class="text-3xl font-bold text-balance">Siap Memulai Bisnis Online Anda?</h2>
+        <p class="mt-3 text-emerald-50">Gabung sekarang dan dapatkan hosting gratis selama 30 hari pertama.</p>
+        <a href="#" class="mt-6 inline-block rounded-lg bg-white px-6 py-3 font-semibold text-emerald-700 hover:bg-emerald-50 transition">Daftar Sekarang</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="kontak" class="bg-slate-900 text-slate-300">
+    <div class="max-w-6xl mx-auto px-4 py-12 grid sm:grid-cols-2 md:grid-cols-4 gap-8">
+      <div>
+        <div class="flex items-center gap-2 mb-3">
+          <span class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-600 text-white font-bold">H</span>
+          <span class="text-lg font-bold text-white">HostMart</span>
+        </div>
+        <p class="text-sm text-slate-400 leading-relaxed">Platform jual beli dan hosting terpercaya untuk bisnis online Anda.</p>
+      </div>
+      <div>
+        <h4 class="font-semibold text-white mb-3">Produk</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#" class="hover:text-emerald-400">Template</a></li>
+          <li><a href="#" class="hover:text-emerald-400">Plugin</a></li>
+          <li><a href="#" class="hover:text-emerald-400">Domain</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold text-white mb-3">Hosting</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#" class="hover:text-emerald-400">Paket Pemula</a></li>
+          <li><a href="#" class="hover:text-emerald-400">Paket Bisnis</a></li>
+          <li><a href="#" class="hover:text-emerald-400">Paket Profesional</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold text-white mb-3">Kontak</h4>
+        <ul class="space-y-2 text-sm">
+          <li>Email: halo@hostmart.id</li>
+          <li>Telepon: (021) 123-4567</li>
+          <li>Jakarta, Indonesia</li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-slate-800 py-6 text-center text-sm text-slate-500">
+      © 2026 HostMart. Seluruh hak cipta dilindungi.
+    </div>
+  </footer>
+
 </body>
 </html>
